@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Farf_Project.Web
 {
-    [Authorize]
+    [Authorize("administrator")]
     public class RoutesController : Controller
     {
         #region Private Readonly Variables
@@ -27,7 +27,6 @@ namespace Farf_Project.Web
 
         #region Public Methods
 
-        [Authorize("administrator")]
         [HttpGet("api/routes")]
         public async Task<IActionResult> GetRoutesAsync()
         {
@@ -36,7 +35,6 @@ namespace Farf_Project.Web
             return this.Ok(result);
         }
 
-        [Authorize]
         [HttpGet("api/routes/{id}")]
         public async Task<IActionResult> GetRouteAsync(Guid id)
         {
@@ -45,7 +43,6 @@ namespace Farf_Project.Web
             return this.Ok(routeRes);
         }
 
-        [Authorize("administrator")]
         [HttpPost("api/routes")]
         public async Task<IActionResult> CreateRouteAsync([FromBody] RouteResource routeResource)
         {
@@ -54,7 +51,6 @@ namespace Farf_Project.Web
             return this.Ok();
         }
 
-        [Authorize("administrator")]
         [HttpDelete("api/routes/{id}")]
         public async Task<IActionResult> DeleteRouteAsync(Guid id)
         {
@@ -62,7 +58,6 @@ namespace Farf_Project.Web
             return this.Ok();
         }
 
-        [Authorize("administrator")]
         [HttpPut("api/routes")]
         public async Task<IActionResult> UpdatetRouteAsync([FromBody] RouteResource routeResource)
         {

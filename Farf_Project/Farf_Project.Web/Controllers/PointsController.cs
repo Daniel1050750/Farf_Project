@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Farf_Project.Web
 {
-    [Authorize]
+    [Authorize("administrator")]
     public class PointsController : Controller
     {
         #region Private Readonly Variables
@@ -27,7 +27,6 @@ namespace Farf_Project.Web
 
         #region Public Methods
 
-        [Authorize("administrator")]
         [HttpGet("api/points")]
         public async Task<IActionResult> GetPointsAsync()
         {
@@ -36,7 +35,6 @@ namespace Farf_Project.Web
             return this.Ok(result);
         }
 
-        [Authorize]
         [HttpGet("api/points/{id}")]
         public async Task<IActionResult> GetPointAsync(Guid id)
         {
@@ -45,7 +43,6 @@ namespace Farf_Project.Web
             return this.Ok(pointRes);
         }
 
-        [Authorize("administrator")]
         [HttpPost("api/points")]
         public async Task<IActionResult> CreatePointAsync([FromBody] PointResource pointResource)
         {
@@ -54,7 +51,6 @@ namespace Farf_Project.Web
             return this.Ok();
         }
 
-        [Authorize("administrator")]
         [HttpDelete("api/points/{id}")]
         public async Task<IActionResult> DeletePointAsync(Guid id)
         {
@@ -62,7 +58,6 @@ namespace Farf_Project.Web
             return this.Ok();
         }
 
-        [Authorize("administrator")]
         [HttpPut("api/points")]
         public async Task<IActionResult> UpdatetPointAsync([FromBody] PointResource pointResource)
         {
