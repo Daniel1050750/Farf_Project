@@ -1,0 +1,43 @@
+﻿<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ assembly name="System.Core" #>
+<#@ output extension=".sql" #>
+<#@ template hostspecific="True" #>
+
+
+<#
+    var sqlPath = Path.GetDirectoryName(this.Host.TemplateFile);
+    var directories = Directory.GetDirectories(sqlPath).OrderBy(s => s);
+
+    foreach (var directory in directories)
+    {
+		var directoryName = directory.Split('\\').LastOrDefault();
+
+#>
+------------------------
+--- <#= directoryName #>
+------------------------
+
+<# 
+        var files = Directory.GetFiles(directory).OrderBy(f => f);
+        foreach (var file in files)
+        {
+
+			var fileName = file.Split('\\').LastOrDefault();
+			var fileSql = File.ReadAllText(file);
+#>
+
+----- <#= fileName #>
+
+<#= fileSql #>
+
+<# 
+		}
+	}
+#>
+
+
+
