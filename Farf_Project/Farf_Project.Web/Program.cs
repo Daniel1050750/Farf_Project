@@ -14,14 +14,6 @@ namespace Farf_Project.Web
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .ConfigureServices(serviceCollection =>
-                {
-                    serviceCollection.AddSingleton(new ResourceManager(
-                        "Farf_Project.Web.LocalizedResources.LocalizedResources", 
-                        typeof(Startup).GetTypeInfo().Assembly)
-                    );
-                })
-                .UseStartup<Startup>();
+            WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
     }
 }

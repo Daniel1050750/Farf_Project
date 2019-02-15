@@ -10,6 +10,7 @@ namespace Farf_Project.Web
         public string Username { get; set; }
         public string Password { get; set; }
         public string State { get; set; }
+        public string Role { get; set; }
         public string LastAuthentication { get; set; }
 
         #region Mappers
@@ -31,7 +32,8 @@ namespace Farf_Project.Web
                 Id = GuidHelper.GuidToString(source.Id),
                 Username = source.Username,
                 LastAuthentication = source.LastAuthentication.HasValue ? DateTimeHelper.ConvertDateTimeToString(source.LastAuthentication.Value) : "",
-                State = source.State.ToString()
+                State = source.State.ToString(),
+                Role = source.Role.ToString()
             };
 
             return target;
@@ -57,6 +59,9 @@ namespace Farf_Project.Web
 
             Enum.TryParse(source.State, out UserState userState);
             target.State = userState;
+
+            Enum.TryParse(source.Role, out UserRole userRole);
+            target.Role = userRole;
 
             return target;
         }

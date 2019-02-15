@@ -24,8 +24,11 @@ namespace Farf_Project.Core
         public string Username { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the role.
         /// </summary>
+        /// <value>
+        /// The role.
+        /// </value>
         public UserRole Role { get; set; }
 
         /// <summary>

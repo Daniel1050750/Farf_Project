@@ -18,8 +18,6 @@ namespace Farf_Project.Web
         }
     }
 
-    // https://www.jerriepelser.com/blog/creating-dynamic-authorization-policies-aspnet-core/
-    // https://docs.microsoft.com/en-us/aspnet/core/security/authorization/policies?view=aspnetcore-2.2
     public class ScopePermissionHandler : AuthorizationHandler<ScopePermissionRequirement>
     {
         private static string CLAIM_SCOPE = "scope";

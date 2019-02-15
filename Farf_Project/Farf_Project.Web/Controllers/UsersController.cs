@@ -41,11 +41,10 @@ namespace Farf_Project.Web
         }
 
         /// <summary>
-        /// get user by ID
+        /// Get user by ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize("administrator")]
         [HttpGet("api/users/{id}")]
         public async Task<IActionResult> GetUser(Guid id)
         {
@@ -58,7 +57,6 @@ namespace Farf_Project.Web
         /// Get user states
         /// </summary>
         /// <returns></returns>
-        [Authorize("administrator")]
         [HttpGet("api/users/states")]
         public IActionResult GetUserStates()
         {
@@ -67,11 +65,21 @@ namespace Farf_Project.Web
         }
 
         /// <summary>
+        /// Get user roles
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("api/users/roles")]
+        public IActionResult GetUserRoles()
+        {
+            var types = Enum.GetNames(typeof(UserRole));
+            return this.Ok(types);
+        }
+
+        /// <summary>
         /// Create new user
         /// </summary>
         /// <param name="userResource"></param>
         /// <returns></returns>
-        [Authorize("administrator")]
         [HttpPost("api/users")]
         public async Task<IActionResult> CreateUserAsync([FromBody] UserResource userResource)
         {
@@ -85,7 +93,6 @@ namespace Farf_Project.Web
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize("administrator")]
         [HttpDelete("api/users/{id}")]
         public async Task<IActionResult> DeleteUserAsync(Guid id)
         {
@@ -98,7 +105,6 @@ namespace Farf_Project.Web
         /// </summary>
         /// <param name="userResource"></param>
         /// <returns></returns>
-        [Authorize("administrator")]
         [HttpPut("api/users")]
         public async Task<IActionResult> UpdatetUser([FromBody] UserResource userResource)
         {

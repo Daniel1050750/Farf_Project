@@ -93,7 +93,7 @@ namespace Farf_Project.Web
             });
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("api/session/logout")]
         public async Task<IActionResult> AuthenticationLogoutAsync()
         {

@@ -4,5 +4,32 @@ INSERT INTO RouteState(Id, Name) VALUES (1, 'Active');
 INSERT INTO RouteState(Id, Name) VALUES (2, 'Inactive');
 
 -- Creates Routes
-INSERT INTO "Route"(id, pointstart, pointend, routeprice, routetime, state, lastauthentication, createdon, updatedon, isdeleted) 
-VALUES ('755ea1f8-b453-4425-ae93-135a0f27c001', '', '', 'F1F8795E1954D229C868231C419E0D2D5FC3D71F1405C33F4D0F6949604FC1EB0BBB4CE3A9987C821DA2921CFBB3807765FD3C4FD15FA84FC4C8DA59DA2B066E', 'E734C8335A75AA0E1C433F3F4CD6501F61C05637845FEB958694C165E2787F8E3DDF2880FC3C15B467971ECA079103879963CFB41D96A30C0E7F565254C435B9', 1, 2, null, (NOW() AT TIME ZONE 'utc'), (NOW() AT TIME ZONE 'utc'), false);
+INSERT INTO "Route" (id, pointstart, pointend, routeprice, routetime, state, lastauthentication, createdon, updatedon, isdeleted) 
+VALUES ('755ea1f8-b453-4425-ae93-135a0f27c001', '755ea1f8-b453-4425-ae93-135a0f27a123', '755ea1f8-b453-4425-ae93-135a0f27a128', 156, 985, 1, null, (NOW() AT TIME ZONE 'utc'), (NOW() AT TIME ZONE 'utc'), false);
+
+INSERT INTO "Route" (id, pointstart, pointend, routeprice, routetime, state, lastauthentication, createdon, updatedon, isdeleted) 
+VALUES ('755ea1f8-b453-4425-ae93-135a0f27c002', '755ea1f8-b453-4425-ae93-135a0f27a127', '755ea1f8-b453-4425-ae93-135a0f27a124', 2, 32, 1, null, (NOW() AT TIME ZONE 'utc'), (NOW() AT TIME ZONE 'utc'), false);
+
+INSERT INTO "Route" (id, pointstart, pointend, routeprice, routetime, state, lastauthentication, createdon, updatedon, isdeleted) 
+VALUES ('755ea1f8-b453-4425-ae93-135a0f27c003', '755ea1f8-b453-4425-ae93-135a0f27a123', '755ea1f8-b453-4425-ae93-135a0f27a127', 32, 65, 1, null, (NOW() AT TIME ZONE 'utc'), (NOW() AT TIME ZONE 'utc'), false);
+
+INSERT INTO "Route" (id, pointstart, pointend, routeprice, routetime, state, lastauthentication, createdon, updatedon, isdeleted) 
+VALUES ('755ea1f8-b453-4425-ae93-135a0f27c004', '755ea1f8-b453-4425-ae93-135a0f27a125', '755ea1f8-b453-4425-ae93-135a0f27a126', 45, 71, 1, null, (NOW() AT TIME ZONE 'utc'), (NOW() AT TIME ZONE 'utc'), false);
+
+INSERT INTO "Route" (id, pointstart, pointend, routeprice, routetime, state, lastauthentication, createdon, updatedon, isdeleted) 
+VALUES ('755ea1f8-b453-4425-ae93-135a0f27c005', '755ea1f8-b453-4425-ae93-135a0f27a124', '755ea1f8-b453-4425-ae93-135a0f27a125', 26, 98, 1, null, (NOW() AT TIME ZONE 'utc'), (NOW() AT TIME ZONE 'utc'), false);
+
+INSERT INTO "Route" (id, pointstart, pointend, routeprice, routetime, state, lastauthentication, createdon, updatedon, isdeleted) 
+VALUES ('755ea1f8-b453-4425-ae93-135a0f27c006', '755ea1f8-b453-4425-ae93-135a0f27a124', '755ea1f8-b453-4425-ae93-135a0f27a128', 14, 54, 1, null, (NOW() AT TIME ZONE 'utc'), (NOW() AT TIME ZONE 'utc'), false);
+
+INSERT INTO "Route" (id, pointstart, pointend, routeprice, routetime, state, lastauthentication, createdon, updatedon, isdeleted) 
+VALUES ('755ea1f8-b453-4425-ae93-135a0f27c007', '755ea1f8-b453-4425-ae93-135a0f27a123', '755ea1f8-b453-4425-ae93-135a0f27a124', 16, 44, 1, null, (NOW() AT TIME ZONE 'utc'), (NOW() AT TIME ZONE 'utc'), false);
+
+INSERT INTO "Route" (id, pointstart, pointend, routeprice, routetime, state, lastauthentication, createdon, updatedon, isdeleted) 
+VALUES ('755ea1f8-b453-4425-ae93-135a0f27c008', '755ea1f8-b453-4425-ae93-135a0f27a123', '755ea1f8-b453-4425-ae93-135a0f27a127', 87, 11, 1, null, (NOW() AT TIME ZONE 'utc'), (NOW() AT TIME ZONE 'utc'), false);
+
+INSERT INTO "Route" (id, pointstart, pointend, routeprice, routetime, state, lastauthentication, createdon, updatedon, isdeleted) 
+VALUES ('755ea1f8-b453-4425-ae93-135a0f27c009', '755ea1f8-b453-4425-ae93-135a0f27a125', '755ea1f8-b453-4425-ae93-135a0f27a129', 33, 26, 1, null, (NOW() AT TIME ZONE 'utc'), (NOW() AT TIME ZONE 'utc'), false);
+
+INSERT INTO "Route" (id, pointstart, pointend, routeprice, routetime, state, lastauthentication, createdon, updatedon, isdeleted) 
+VALUES ('755ea1f8-b453-4425-ae93-135a0f27c010', '755ea1f8-b453-4425-ae93-135a0f27a126', '755ea1f8-b453-4425-ae93-135a0f27a127', 34, 25, 1, null, (NOW() AT TIME ZONE 'utc'), (NOW() AT TIME ZONE 'utc'), false);
