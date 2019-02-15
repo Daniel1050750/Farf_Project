@@ -41,6 +41,7 @@ namespace Farf_Project.Core
         /// <param name="username"></param>
         /// <returns></returns>
         Task GetUserAsync(string username);
+        
         /// <summary>
         /// Gets the user by username asynchronous.
         /// </summary>

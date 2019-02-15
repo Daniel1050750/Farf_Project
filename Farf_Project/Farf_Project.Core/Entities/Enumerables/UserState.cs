@@ -10,10 +10,9 @@ namespace Farf_Project.Core
         Inactive
     }
 
-    public enum UserRolePermission
+    public enum UserRole
     {
-        NoAccess = 0,
-        Operator,
+        Operator = 1,
         Administrator
     }
 }

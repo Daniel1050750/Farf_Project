@@ -121,7 +121,6 @@ namespace Farf_Project.Infrastructure
             var newUser = new
             {
                 user.Id,
-                user.Name,
                 Username = user.Username?.ToLowerInvariant(),
                 user.State,
                 Password = password,
@@ -162,7 +161,6 @@ namespace Farf_Project.Infrastructure
             var newUserAndPassword = new
             {
                 user.Id,
-                user.Name,
                 Username = user.Username?.ToLowerInvariant(),
                 user.State
             };

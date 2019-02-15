@@ -16,14 +16,6 @@ namespace Farf_Project.Core
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the user name.
-        /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
-        public string Name { get; set; }
-
-        /// <summary>
         /// Gets or sets the username.
         /// </summary>
         /// <value>
@@ -32,12 +24,9 @@ namespace Farf_Project.Core
         public string Username { get; set; }
 
         /// <summary>
-        /// Gets or sets the role identifier.
+        /// 
         /// </summary>
-        /// <value>
-        /// The role identifier.
-        /// </value>
-        public Guid RoleId { get; set; }
+        public UserRole Role { get; set; }
 
         /// <summary>
         /// Gets or sets the state.

@@ -165,7 +165,7 @@ namespace Farf_Project.Core
         /// <exception cref="ArgumentNullException">The username parameter can not be null.
         /// or
         /// The password parameter can not be null.</exception>
-        /// <exception cref="Neadvance.Core.UserException">
+        /// <exception cref="Farf_Project.Core.UserException">
         /// </exception>
         public async Task ValidateCredentialsAsync(string username, string password)
         {
@@ -217,16 +217,10 @@ namespace Farf_Project.Core
         private void ValidateUser(User user)
         {
             var username = user.Username.Trim();
-            var name = user.Name.Trim();
 
             if (user == null)
             {
                 throw new MissingArgumentException("The user can't be null.");
-            }
-
-            if (name.Replace("\n", string.Empty).Length > MAX_INPUT_LENGTH)
-            {
-                throw new InvalidArgumentException(string.Format("Max length allowed of {0} characters for name.", MAX_INPUT_LENGTH));
             }
 
             if (username.Replace("\n", string.Empty).Length > MAX_INPUT_LENGTH && username.Replace("\n", string.Empty).Length < MIN_INPUT_LENGTH)

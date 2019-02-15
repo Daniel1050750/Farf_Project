@@ -29,7 +29,6 @@ namespace Farf_Project.Web
             var target = new UserResource
             {
                 Id = GuidHelper.GuidToString(source.Id),
-                Name = source.Name,
                 Username = source.Username,
                 LastAuthentication = source.LastAuthentication.HasValue ? DateTimeHelper.ConvertDateTimeToString(source.LastAuthentication.Value) : "",
                 State = source.State.ToString()
@@ -53,7 +52,6 @@ namespace Farf_Project.Web
             var target = new User
             {
                 Id = GuidHelper.StringToGuid(source.Id),
-                Name = source.Name,
                 Username = source.Username
             };
 

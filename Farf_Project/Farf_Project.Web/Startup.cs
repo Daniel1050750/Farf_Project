@@ -91,41 +91,6 @@ namespace Farf_Project.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            // Localization: Here we are building a list of supported cultures which will be used in the
-            //               RequestLocalizationOptions in the app.UseRequestLocalization call below.
-            var supportedCultures = new[]
-              {
-                    // Localization: Notice that neutral cultures (like 'es') are
-                    //               listed after specific cultures. This best practice
-                    //               ensures that if a particular culture request could
-                    //               be satisifed by either a supported specific culture
-                    //               or a supported neutral culture, the specific culture
-                    //               will be preferred.
-                    new CultureInfo("en-US"),
-                    new CultureInfo("de-DE"),
-                    new CultureInfo("pt"),
-              };
-
-            // Localization: Here we are configuring the RequstLocalization including setting the supported cultures from above
-            //               in the RequestLocalizationOptions. We are also setting the default request culture to be used
-            //               for current culture. These options will be used wherever we request localized strings.
-            //               For more information see https://docs.asp.net/en/latest/fundamentals/localization.html
-            //
-            //               Request locale will be read from an Accept-Language header, a culture query string, or
-            //               an ASP.NET Core culture cookie. Other options can be supported with custom RequestCultureProvider
-            var requestLocalizationOptions = new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("en-US"),
-
-                // Formatting numbers, dates, etc.
-                SupportedCultures = supportedCultures,
-
-                // UI strings that we have localized.
-                SupportedUICultures = supportedCultures
-            };
-
-            app.UseRequestLocalization(requestLocalizationOptions);
-
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMiddleware(typeof(TokenManagerMiddleware));
 

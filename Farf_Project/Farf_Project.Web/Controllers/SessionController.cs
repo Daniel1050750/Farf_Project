@@ -17,17 +17,15 @@ namespace Farf_Project.Web
         #region Private Readonly Session
         
         private readonly IUsersService usersService;
-        private readonly IResourcesService resourcesService;
         private readonly ITokenManager tokenManager;
 
         #endregion Private Readonly Session
 
         #region Constructor
 
-        public SessionController(IUsersService sessionService, IResourcesService resourcesService, ITokenManager tokenManager)
+        public SessionController(IUsersService sessionService, ITokenManager tokenManager)
         {
             this.usersService = sessionService;
-            this.resourcesService = resourcesService;
             this.tokenManager = tokenManager;
         }
 
@@ -46,28 +44,19 @@ namespace Farf_Project.Web
             }
             catch (UserException e) when (e.Type == UserExceptionType.UserNotFound)
             {
-                var errorMessage = this.resourcesService.GetResource(ResourceKeys.UsernamePasswordNotFound);
-                throw new UnauthorizedException(errorMessage);
+                throw new UnauthorizedException("User not found");
             }
             catch (UserException e) when (e.Type == UserExceptionType.InvalidPassword)
             {
-                var errorMessage = this.resourcesService.GetResource(ResourceKeys.UsernamePasswordNotFound);
-                throw new UnauthorizedException(errorMessage);
+                throw new UnauthorizedException("Invalid password");
             }
             catch (UserException e) when (e.Type == UserExceptionType.UserNotActive)
             {
-                var errorMessage = this.resourcesService.GetResource(ResourceKeys.UserNotActive);
-                throw new UnauthorizedException(errorMessage);
+                throw new UnauthorizedException("User not active");
             }
 
             // get the user data
             var user = await this.usersService.GetUserByUsernameAsync(authenticationMetadataResource.Username);
-
-            var userInfo = new {
-                user.Name,
-                user.Username,
-                Language = "en"
-            };
 
             var claims = new List<Claim>();
 
@@ -75,7 +64,7 @@ namespace Farf_Project.Web
             claims.Add(new Claim(ClaimTypes.Name, authenticationMetadataResource.Username));
 
             // add scope claim
-            claims.Add(new Claim("scope", "administrator"));
+            claims.Add(new Claim("scope", user.Role.ToString()));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("hdhgsdfghseifhgsldfhgksdfogsdf523452345dsfgsdfg"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -101,12 +90,10 @@ namespace Farf_Project.Web
             return this.Ok(new
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
-                lang = userInfo.Language,
-                userInfo
             });
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("api/session/logout")]
         public async Task<IActionResult> AuthenticationLogoutAsync()
         {
