@@ -25,8 +25,7 @@ namespace Farf_Project.Web
 
         #endregion Constructor
 
-        #region Public Methods
-
+        #region Public Methods       
         [HttpGet("api/points")]
         public async Task<IActionResult> GetPointsAsync()
         {

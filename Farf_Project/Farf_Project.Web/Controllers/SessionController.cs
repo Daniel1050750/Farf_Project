@@ -32,7 +32,11 @@ namespace Farf_Project.Web
         #endregion Constructor
 
         #region Public Methods
-
+        /// <summary>
+        /// Verify the credentials and create token based on user role
+        /// </summary>
+        /// <param name="authenticationMetadataResource"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("api/session/login")]
         public async Task<IActionResult> AuthenticationLogin([FromBody] AuthenticationDataResource authenticationMetadataResource)
@@ -64,7 +68,7 @@ namespace Farf_Project.Web
             claims.Add(new Claim(ClaimTypes.Name, authenticationMetadataResource.Username));
 
             // add scope claim
-            claims.Add(new Claim("scope", user.Role.ToString()));
+            claims.Add(new Claim("scope", user.Role.ToString().ToLowerInvariant()));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("hdhgsdfghseifhgsldfhgksdfogsdf523452345dsfgsdfg"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -93,6 +97,10 @@ namespace Farf_Project.Web
             });
         }
 
+        /// <summary>
+        /// Logout user. Delete token for this user
+        /// </summary>
+        /// <returns></returns>
         [Authorize]
         [HttpPost("api/session/logout")]
         public async Task<IActionResult> AuthenticationLogoutAsync()

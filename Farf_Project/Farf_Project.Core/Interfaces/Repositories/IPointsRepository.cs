@@ -43,21 +43,6 @@ namespace Farf_Project.Core
         Task<Point> GetPointByPointnameAsync(string pointname);
 
         /// <summary>
-        /// Gets the password salt asynchronous.
-        /// </summary>
-        /// <param name="pointId">The point identifier.</param>
-        /// <returns>The password salt.</returns>
-        Task<string> GetPasswordSaltAsync(Guid pointId);
-
-        /// <summary>
-        /// Verifies the password asynchronous.
-        /// </summary>
-        /// <param name="pointId">The point identifier.</param>
-        /// <param name="password">The password.</param>
-        /// <returns>True if the password is valid for the provided point, false otherwise.</returns>
-        Task<bool> VerifyPasswordAsync(Guid pointId, string password);
-
-        /// <summary>
         /// Deletes the point asynchronously.
         /// </summary>
         /// <param name="id"></param>
@@ -72,14 +57,5 @@ namespace Farf_Project.Core
         /// <param name=""></param>
         /// <returns></returns>
         Task UpdatePointAsync(Point point);
-
-        /// <summary>
-        /// Update point password
-        /// </summary>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
-        Task UpdatePointPasswordAsync(Guid id, string securePassword, string salt);
     }
 }

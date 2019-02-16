@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Farf_Project.Web
 {
-    [Authorize]
+    [Authorize("administrator")]
     public class UsersController : Controller
     {
         #region Private Readonly Variables
@@ -30,8 +30,7 @@ namespace Farf_Project.Web
         /// <summary>
         /// Get all users
         /// </summary>
-        /// <returns></returns>
-        [Authorize("administrator")]
+        /// <returns></returns>        
         [HttpGet("api/users")]
         public async Task<IActionResult> GetUsers()
         {
@@ -51,28 +50,6 @@ namespace Farf_Project.Web
             var user = await this.usersService.GetUserAsync(id);
             var userRes = UserResource.Map(user);
             return this.Ok(userRes);
-        }
-
-        /// <summary>
-        /// Get user states
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("api/users/states")]
-        public IActionResult GetUserStates()
-        {
-            var types = Enum.GetNames(typeof(UserState));
-            return this.Ok(types);
-        }
-
-        /// <summary>
-        /// Get user roles
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("api/users/roles")]
-        public IActionResult GetUserRoles()
-        {
-            var types = Enum.GetNames(typeof(UserRole));
-            return this.Ok(types);
         }
 
         /// <summary>

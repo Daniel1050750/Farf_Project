@@ -67,10 +67,7 @@ namespace Farf_Project.Core
             {
                 return user;
             }
-
-
         }
-
 
         /// <summary>
         /// Gets the user by username asynchronous.
@@ -84,9 +81,7 @@ namespace Farf_Project.Core
             {
                 throw new ArgumentNullException("The username parameter can not be null.");
             }
-
             var user = await this.usersRepository.GetUserByUsernameAsync(username);
-
             return user;
         }
 
@@ -98,6 +93,7 @@ namespace Farf_Project.Core
         /// <returns></returns>
         public async Task CreateUserAsync(User user, string password)
         {
+            // validate user data
             await this.ValidateCreateUserAsync(user, password);
 
             // creates a new Id to the user
@@ -144,7 +140,6 @@ namespace Farf_Project.Core
         public async Task UpdateUserAsync(User user, string password)
         {
             await this.ValidateUpdateUserAsync(user, password);
-
             if (!string.IsNullOrEmpty(password))
             {
                 // get random salt and build a secure password hash with the random salt.
@@ -169,11 +164,13 @@ namespace Farf_Project.Core
         /// </exception>
         public async Task ValidateCredentialsAsync(string username, string password)
         {
+            // username can't be null or empty
             if (string.IsNullOrEmpty(username))
             {
                 throw new ArgumentNullException("The username parameter can not be null.");
             }
 
+            // password can't be null or empty
             if (string.IsNullOrEmpty(password))
             {
                 throw new ArgumentNullException("The password parameter can not be null.");
@@ -210,38 +207,41 @@ namespace Farf_Project.Core
 
         #region Private Methods
         /// <summary>
-        /// Generic validate user data
+        /// Generic User validation
         /// </summary>
         /// <param name="user"></param>
-        /// <param name="password"></param>
         private void ValidateUser(User user)
         {
             var username = user.Username.Trim();
-
+            
+            // check if user exists
             if (user == null)
             {
                 throw new MissingArgumentException("The user can't be null.");
             }
 
+            // username lenght validation
             if (username.Replace("\n", string.Empty).Length > MAX_INPUT_LENGTH && username.Replace("\n", string.Empty).Length < MIN_INPUT_LENGTH)
             {
                 throw new InvalidArgumentException(string.Format("The username length must be between {0} and {1} characters", MIN_INPUT_LENGTH, MAX_INPUT_LENGTH));
             }
 
+            // username characters validation
             if (!Regex.IsMatch(username, VALID_USERNAME_PATTERN))
             {
                 throw new InvalidArgumentException("Allowed characters: a-z A-Z 0-9");
             }
 
-            // the user role does not set
-            if (!Enum.IsDefined(typeof(UserState), user.State))
-            {
-                throw new InvalidArgumentException("Role not allowed.");
-            }
-
+            // the user state does not set
             if (!Enum.IsDefined(typeof(UserState), user.State))
             {
                 throw new InvalidArgumentException("State not allowed.");
+            }
+
+            // the user role does not set
+            if (!Enum.IsDefined(typeof(UserRole), user.Role))
+            {
+                throw new InvalidArgumentException("Role not allowed.");
             }
         }
 
@@ -254,7 +254,7 @@ namespace Farf_Project.Core
         private async Task ValidateUpdateUserAsync(User user, string password)
         {
             this.ValidateUser(user);
-            if (password.Length != 0 && (password.Length < MIN_INPUT_LENGTH || password.Length > MAX_INPUT_LENGTH))
+            if (!string.IsNullOrEmpty(password) && (password.Length < MIN_INPUT_LENGTH || password.Length > MAX_INPUT_LENGTH))
             {
                 throw new InvalidArgumentException(string.Format("The password length must be between {0} and {1} characters", MIN_INPUT_LENGTH, MAX_INPUT_LENGTH));
             }
@@ -281,13 +281,17 @@ namespace Farf_Project.Core
         private async Task ValidateCreateUserAsync(User user, string password)
         {
             this.ValidateUser(user);
+
+            // password length validation
             if (password.Length < MIN_INPUT_LENGTH || password.Length > MAX_INPUT_LENGTH)
             {
                 throw new InvalidArgumentException(string.Format("The password must have at least {0} characters and {1} maximum", MIN_INPUT_LENGTH, MAX_INPUT_LENGTH));
             }
 
+            // find all active users with same username
             var res = await this.usersRepository.GetUserByUsernameAsync(user.Username);
 
+            // active user with same username validation
             if (res != null)
             {
                 throw new InvalidArgumentException("Username already in use.");

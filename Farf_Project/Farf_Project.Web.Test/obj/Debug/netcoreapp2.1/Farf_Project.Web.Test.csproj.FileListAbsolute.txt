@@ -1,0 +1,14 @@
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\Debug\netcoreapp2.1\Farf_Project.Web.Test.deps.json
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\Debug\netcoreapp2.1\Farf_Project.Web.Test.runtimeconfig.json
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\Debug\netcoreapp2.1\Farf_Project.Web.Test.runtimeconfig.dev.json
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\Debug\netcoreapp2.1\Farf_Project.Web.Test.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\Debug\netcoreapp2.1\Farf_Project.Web.Test.pdb
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.csprojAssemblyReference.cache
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.csproj.CoreCompileInputs.cache
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.AssemblyInfoInputs.cache
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.AssemblyInfo.cs
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.pdb

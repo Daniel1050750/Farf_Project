@@ -5,12 +5,34 @@ namespace Farf_Project.Web
 {
     public class UserResource
     {
+        /// <summary>
+        /// User identifier.
+        /// </summary>
         public string Id { get; set; }
-        public string Name { get; set; }
+
+        /// <summary>
+        /// Username.
+        /// </summary>
         public string Username { get; set; }
+
+        /// <summary>
+        /// User password
+        /// </summary>
         public string Password { get; set; }
+
+        /// <summary>
+        /// User state
+        /// </summary>
         public string State { get; set; }
+
+        /// <summary>
+        /// USer role
+        /// </summary>
         public string Role { get; set; }
+
+        /// <summary>
+        /// Last user authentication date
+        /// </summary>
         public string LastAuthentication { get; set; }
 
         #region Mappers
@@ -19,7 +41,7 @@ namespace Farf_Project.Web
         /// User to UserResource
         /// </summary>
         /// <param name="source"></param>
-        /// <returns></returns>
+        /// <returns>UserResource</returns>
         public static UserResource Map(User source)
         {
             if (source == null)
@@ -40,10 +62,10 @@ namespace Farf_Project.Web
         }
 
         /// <summary>
-        /// UserResource to user
+        /// UserResource to User
         /// </summary>
         /// <param name="source"></param>
-        /// <returns></returns>
+        /// <returns>User</returns>
         public static User Map(UserResource source)
         {
             if (source == null)

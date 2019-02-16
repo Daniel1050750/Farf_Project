@@ -25,7 +25,11 @@ namespace Farf_Project.Web
         #endregion
 
         #region Public Methods
-
+        /// <summary>
+        /// Store catched exception
+        /// </summary>
+        /// <param name="exception"></param>
+        /// <returns></returns>
         public async Task<Guid> StoreLogExceptionAsync(Exception exception)
         {
             var exceptionId = Guid.NewGuid();

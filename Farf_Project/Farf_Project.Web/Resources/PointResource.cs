@@ -7,8 +7,7 @@ namespace Farf_Project.Web
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public string Pointname { get; set; }
-        public string Password { get; set; }
+        public string Address { get; set; }
         public string State { get; set; }
         public string LastAuthentication { get; set; }
 
@@ -25,6 +24,7 @@ namespace Farf_Project.Web
             {
                 Id = GuidHelper.GuidToString(source.Id),
                 Name = source.Name,
+                Address = source.Address,
                 LastAuthentication = source.LastAuthentication.HasValue ? DateTimeHelper.ConvertDateTimeToString(source.LastAuthentication.Value) : "",
                 State = source.State.ToString()
             };
@@ -42,7 +42,8 @@ namespace Farf_Project.Web
             var target = new Point
             {
                 Id = GuidHelper.StringToGuid(source.Id),
-                Name = source.Name
+                Name = source.Name,
+                Address = source.Address
             };
 
             Enum.TryParse(source.State, out PointState pointState);

@@ -13,7 +13,6 @@ CREATE TABLE UserRole (
 -- Create User table
 CREATE TABLE "User" (
 	Id 					UUID 			NOT NULL,
-	Name				VARCHAR(255)	NOT NULL,
 	Username			VARCHAR(255)	NOT NULL,
 	Password			VARCHAR(255)	NOT NULL,
 	PasswordSalt		VARCHAR(128)	NOT NULL,
