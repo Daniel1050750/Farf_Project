@@ -5,14 +5,32 @@ namespace Farf_Project.Web
 {
     public class PointResource
     {
+        /// <summary>
+        /// Point identifier
+        /// </summary>
         public string Id { get; set; }
+
+        /// <summary>
+        /// Point name
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Point address
+        /// </summary>
         public string Address { get; set; }
+
+        /// <summary>
+        /// Point state
+        /// </summary>
         public string State { get; set; }
-        public string LastAuthentication { get; set; }
 
         #region Mappers
-
+        /// <summary>
+        /// Point to PointResource
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns>PointResource</returns>
         public static PointResource Map(Point source)
         {
             if (source == null)
@@ -25,13 +43,17 @@ namespace Farf_Project.Web
                 Id = GuidHelper.GuidToString(source.Id),
                 Name = source.Name,
                 Address = source.Address,
-                LastAuthentication = source.LastAuthentication.HasValue ? DateTimeHelper.ConvertDateTimeToString(source.LastAuthentication.Value) : "",
                 State = source.State.ToString()
             };
 
             return target;
         }
 
+        /// <summary>
+        /// PointResource to Point
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns>Point</returns>
         public static Point Map(PointResource source)
         {
             if (source == null)
@@ -51,7 +73,6 @@ namespace Farf_Project.Web
 
             return target;
         }
-
         #endregion Mappers
     }
 }

@@ -9,8 +9,7 @@ CREATE TABLE Point (
 	Id 					UUID 			NOT NULL,
 	Name				VARCHAR(255)	NOT NULL,
 	Address				VARCHAR(255)	NOT NULL,	
-	State				SMALLINT		NOT NULL,
-    LastAuthentication	TIMESTAMP WITHOUT TIME ZONE,                                    -- UTC FORMAT
+	State				SMALLINT		NOT NULL,                               -- UTC FORMAT
 	CreatedOn 			TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc'), -- UTC FORMAT
 	UpdatedOn           TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc'), -- UTC FORMAT
     IsDeleted           BOOLEAN DEFAULT FALSE,

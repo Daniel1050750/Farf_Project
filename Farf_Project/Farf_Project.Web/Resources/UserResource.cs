@@ -6,7 +6,7 @@ namespace Farf_Project.Web
     public class UserResource
     {
         /// <summary>
-        /// User identifier.
+        /// User identifier
         /// </summary>
         public string Id { get; set; }
 
@@ -30,11 +30,6 @@ namespace Farf_Project.Web
         /// </summary>
         public string Role { get; set; }
 
-        /// <summary>
-        /// Last user authentication date
-        /// </summary>
-        public string LastAuthentication { get; set; }
-
         #region Mappers
 
         /// <summary>
@@ -53,7 +48,6 @@ namespace Farf_Project.Web
             {
                 Id = GuidHelper.GuidToString(source.Id),
                 Username = source.Username,
-                LastAuthentication = source.LastAuthentication.HasValue ? DateTimeHelper.ConvertDateTimeToString(source.LastAuthentication.Value) : "",
                 State = source.State.ToString(),
                 Role = source.Role.ToString()
             };

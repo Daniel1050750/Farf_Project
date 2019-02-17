@@ -35,21 +35,10 @@ namespace Farf_Project.Core
         #endregion Constructor
 
         /// <summary>
-        /// Get user
-        /// Not implemented yet
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public Task<User> GetUsers(User user)
-        {
-            return null;
-        }
-
-        /// <summary>
         /// Gets the user.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>The user.</returns>
+        /// <returns>User</returns>
         public async Task<User> GetUserAsync(Guid id)
         {
             if (Guid.Empty.Equals(id))
@@ -90,7 +79,6 @@ namespace Farf_Project.Core
         /// </summary>
         /// <param name="user">The user.</param>
         /// <param name="password">The password.</param>
-        /// <returns></returns>
         public async Task CreateUserAsync(User user, string password)
         {
             // validate user data
@@ -111,7 +99,6 @@ namespace Farf_Project.Core
         /// Deletes the user by ID asynchronously.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
         public async Task DeleteUserAsync(Guid id)
         {
             await this.usersRepository.DeleteUserAsync(id);
@@ -128,15 +115,20 @@ namespace Farf_Project.Core
         }
 
         /// <summary>
-        /// Get list of users asynchronous.
+        /// Get list of users asynchronous
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Users list</returns>
         public async Task<IList<User>> GetUsersListAsync()
         {
             var users = await this.usersRepository.GetUsersAsync();
             return users.ToList();
         }
 
+        /// <summary>
+        /// Update user data and password
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
         public async Task UpdateUserAsync(User user, string password)
         {
             await this.ValidateUpdateUserAsync(user, password);
@@ -221,7 +213,7 @@ namespace Farf_Project.Core
             }
 
             // username lenght validation
-            if (username.Replace("\n", string.Empty).Length > MAX_INPUT_LENGTH && username.Replace("\n", string.Empty).Length < MIN_INPUT_LENGTH)
+            if (username.Replace("\n", string.Empty).Length > MAX_INPUT_LENGTH || username.Replace("\n", string.Empty).Length < MIN_INPUT_LENGTH)
             {
                 throw new InvalidArgumentException(string.Format("The username length must be between {0} and {1} characters", MIN_INPUT_LENGTH, MAX_INPUT_LENGTH));
             }

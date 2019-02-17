@@ -14,6 +14,7 @@ namespace Farf_Project.Core
         #region Private Readonly Variable
 
         private readonly IRoutesRepository routesRepository;
+        private readonly IPointsRepository pointsRepository;
 
         #endregion Private Readonly Variable
 
@@ -21,15 +22,15 @@ namespace Farf_Project.Core
 
         private const int MAX_INPUT_LENGTH = 255;
         private const int MIN_INPUT_LENGTH = 4;
-        private const string VALID_USERNAME_PATTERN = @"^[a-zA-Z0-9_@.-]*$";
 
         #endregion Private Constants
 
         #region Constructor
 
-        public RoutesService(IRoutesRepository routesRepository)
+        public RoutesService(IRoutesRepository routesRepository, IPointsRepository pointsRepository)
         {
             this.routesRepository = routesRepository;
+            this.pointsRepository = pointsRepository;
         }
 
         #endregion Constructor
@@ -67,8 +68,6 @@ namespace Farf_Project.Core
             {
                 return route;
             }
-
-            
         }
 
 
@@ -96,19 +95,11 @@ namespace Farf_Project.Core
         /// <param name="route">The route.</param>
         /// <param name="password">The password.</param>
         /// <returns></returns>
-        public async Task CreateRouteAsync(Route route, string password)
+        public async Task CreateRouteAsync(Route route)
         {
-            await this.ValidateCreateRouteAsync(route, password);
-
-            // creates a new Id to the route
+            await this.ValidateCreateRouteAsync(route);
             route.Id = Guid.NewGuid();
-
-            // get random salt and build a secure password hash with the random salt.
-            var salt = BuildRandomSalt();
-            var securePassword = BuildSecurePassword(password, salt);
-
-            // stores the new route
-            await this.routesRepository.CreateRouteAsync(route, securePassword, salt);
+            await this.routesRepository.CreateRouteAsync(route);
         }
 
         /// <summary>
@@ -141,76 +132,24 @@ namespace Farf_Project.Core
             return routes.ToList();
         }
 
-        public async Task UpdateRouteAsync(Route route, string password)
+        /// <summary>
+        /// Update route
+        /// </summary>
+        /// <param name="route"></param>
+        /// <returns></returns>
+        public async Task UpdateRouteAsync(Route route)
         {
             await this.ValidateUpdateRouteAsync(route);
-
-            if (!string.IsNullOrEmpty(password))
-            {
-                // get random salt and build a secure password hash with the random salt.
-                string salt = BuildRandomSalt();
-                string securePassword = BuildSecurePassword(password, salt);
-                await this.routesRepository.UpdateRoutePasswordAsync(route.Id, securePassword, salt);
-            }
             await this.routesRepository.UpdateRouteAsync(route);
         }
 
-        /// <summary>
-        /// Validates the credentials asynchronous.
-        /// </summary>
-        /// <param name="routename">The routename.</param>
-        /// <param name="password">The password.</param>
-        /// <returns>
-        /// </returns>
-        /// <exception cref="ArgumentNullException">The routename parameter can not be null.
-        /// or
-        /// The password parameter can not be null.</exception>
-        /// <exception cref="Neadvance.Core.RouteException">
-        /// </exception>
-        public async Task ValidateCredentialsAsync(string routename, string password)
-        {
-            if (string.IsNullOrEmpty(routename))
-            {
-                throw new ArgumentNullException("The routename parameter can not be null.");
-            }
-
-            if (string.IsNullOrEmpty(password))
-            {
-                throw new ArgumentNullException("The password parameter can not be null.");
-            }
-
-            var route = await this.GetRouteByRoutenameAsync(routename);
-
-            // the route does not exists for the provided routename
-            if (route == null)
-            {
-                throw new RouteException(RouteExceptionType.RouteNotFound);
-            }
-            
-            // verify if the route is active
-            if (route.State != RouteState.Active)
-            {
-                throw new RouteException(RouteExceptionType.RouteNotActive);
-            }
-
-            // get salt from the route
-            var passwordSalt = await this.routesRepository.GetPasswordSaltAsync(route.Id);
-
-            // generate the secure version of password
-            var securePassword = BuildSecurePassword(password, passwordSalt);
-
-            // verify if the password matchs
-            var validCredentials = await this.routesRepository.VerifyPasswordAsync(route.Id, securePassword);
-
-            if (!validCredentials)
-            {
-                throw new RouteException(RouteExceptionType.InvalidPassword);
-            }
-        }
-
         #region Private Methods
-
-        private void ValidateRoute(Route route)
+        /// <summary>
+        /// Generic route validations
+        /// </summary>
+        /// <param name="route"></param>
+        /// <returns></returns>
+        private async Task ValidateRouteAsync(Route route)
         {
             var name = route.Name.Trim();
 
@@ -219,25 +158,38 @@ namespace Farf_Project.Core
                 throw new MissingArgumentException("The route can't be null.");
             }
 
-            if (name.Replace("\n", string.Empty).Length > MAX_INPUT_LENGTH && name.Replace("\n", string.Empty).Length < MIN_INPUT_LENGTH)
+            if (name.Replace("\n", string.Empty).Length > MAX_INPUT_LENGTH || name.Replace("\n", string.Empty).Length < MIN_INPUT_LENGTH)
             {
                 throw new InvalidArgumentException(string.Format("The routename length must be between {0} and {1} characters", MIN_INPUT_LENGTH, MAX_INPUT_LENGTH));
-            }
-
-            if (!Regex.IsMatch(name, VALID_USERNAME_PATTERN))
-            {
-                throw new InvalidArgumentException("Allowed characters: a-z A-Z 0-9");
             }
 
             if (!Enum.IsDefined(typeof(RouteState), route.State))
             {
                 throw new InvalidArgumentException("State not allowed.");
             }
+
+            var startPoint = await this.pointsRepository.GetPointAsync(route.PointStart);
+
+            if (startPoint == null)
+            {
+                throw new InvalidArgumentException("Start point not found.");
+            }
+
+            var endPoint = await this.pointsRepository.GetPointAsync(route.PointEnd);
+
+            if (endPoint == null)
+            {
+                throw new InvalidArgumentException("End point not found.");
+            }
         }
 
+        /// <summary>
+        /// Validate route data on update
+        /// </summary>
+        /// <param name="route"></param>
         private async Task ValidateUpdateRouteAsync(Route route)
         {
-            this.ValidateRoute(route);
+            await this.ValidateRouteAsync(route);
            
             var resID = await this.routesRepository.GetRouteAsync(route.Id);
 
@@ -250,80 +202,25 @@ namespace Farf_Project.Core
 
             if (res != null && res.Id != route.Id)
             {
-                throw new InvalidArgumentException("Routename already in use.");
+                throw new InvalidArgumentException("Route name already in use.");
             }
         }
 
         /// <summary>
-        /// Validate password on route creation
+        /// Validate route data on create
         /// </summary>
         /// <param name="password"></param>
-        private async Task ValidateCreateRouteAsync(Route route, string password)
+        private async Task ValidateCreateRouteAsync(Route route)
         {
-            this.ValidateRoute(route);
-            if (password.Length < MIN_INPUT_LENGTH || password.Length > MAX_INPUT_LENGTH)
-            {
-                throw new InvalidArgumentException(string.Format("The password must have at least {0} characters and {1} maximum", MIN_INPUT_LENGTH, MAX_INPUT_LENGTH));
-            }
+            await this.ValidateRouteAsync(route);
 
             var res = await this.routesRepository.GetRouteByRoutenameAsync(route.Name);
 
             if (res != null)
             {
-                throw new InvalidArgumentException("Routename already in use.");
+                throw new InvalidArgumentException("Route name already in use.");
             }
         }
-
-        /// <summary>
-        /// Build secure password
-        /// </summary>
-        /// <param name="password"></param>
-        /// <param name="salt"></param>
-        /// <returns></returns>
-        private static string BuildSecurePassword(string password, string salt)
-        {
-            // transform the password to a byte array
-            var passwordBytes = Encoding.UTF8.GetBytes(password);
-
-            // convert salt to bytes
-            byte[] saltBytes = new byte[salt.Length / 2];
-            for (int index = 0; index < saltBytes.Length; index++)
-            {
-                string byteValue = salt.Substring(index * 2, 2);
-                saltBytes[index] = byte.Parse(byteValue, NumberStyles.HexNumber, CultureInfo.InvariantCulture);
-            }
-
-            // join the password and salt bytes
-            var saltedPassword = passwordBytes.Concat(saltBytes).ToArray();
-
-            // apply hash to the salted password
-            byte[] hashedPassword;
-            using (var sha512 = SHA512.Create())
-            {
-                hashedPassword = sha512.ComputeHash(saltedPassword);
-            }
-
-            // convert salt and password byte array to string
-            var securePassword = BitConverter.ToString(hashedPassword).Replace("-", string.Empty);
-
-            return securePassword;
-        }
-
-        /// <summary>
-        /// Build random salt password
-        /// </summary>
-        /// <returns></returns>
-        private static string BuildRandomSalt()
-        {
-            var saltBytes = new Byte[64];
-            using (var rp = new RNGCryptoServiceProvider())
-            {
-                rp.GetBytes(saltBytes);
-            }
-
-            return BitConverter.ToString(saltBytes).Replace("-", string.Empty);
-        }
-
         #endregion Private Methods
     }
 }

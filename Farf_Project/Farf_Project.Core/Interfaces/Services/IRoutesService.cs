@@ -20,7 +20,7 @@ namespace Farf_Project.Core
         /// <param name="route"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        Task CreateRouteAsync(Route route, string password);
+        Task CreateRouteAsync(Route route);
 
         /// <summary>
         /// Delete a route by ID asynchronous.
@@ -56,14 +56,6 @@ namespace Farf_Project.Core
         Task<Route> GetRouteAsync(Guid id);
 
         /// <summary>
-        /// Validates the credentials.
-        /// </summary>
-        /// <param name="routename">The routename.</param>
-        /// <param name="password">The password.</param>
-        /// <returns></returns>
-        Task ValidateCredentialsAsync(string routename, string password);
-
-        /// <summary>
         /// Update route data
         /// </summary>
         /// <param name="id"></param>
@@ -71,6 +63,6 @@ namespace Farf_Project.Core
         /// <param name="password"></param>
         /// <param name="repassword"></param>
         /// <returns></returns>
-        Task UpdateRouteAsync(Route route, string password);
+        Task UpdateRouteAsync(Route route);
     }
 }

@@ -3,63 +3,53 @@
 namespace Farf_Project.Core
 {
     /// <summary>
-    /// The route.
+    /// The route
     /// </summary>
     public class Route
     {
         /// <summary>
-        /// Gets or sets the route identifier.
+        /// Gets or sets the route identifier
         /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the route name.
+        /// Gets or sets the route name
         /// </summary>
-        /// <value>
-        /// The name.
-        /// </value>
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the route start point
         /// </summary>
-        public Guid RouteStart { get; set; }
+        public Guid PointStart { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the route end point
         /// </summary>
-        public Guid RouteEnd { get; set; }
+        public Guid PointEnd { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the route price
+        /// </summary>
+        public int RoutePrice { get; set; }
+
+        /// <summary>
+        /// Gets or sets the route time
+        /// </summary>
+        public int RouteTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the route state
         /// </summary>
         public RouteState State { get; set; }
 
         /// <summary>
-        /// Gets or sets the last authentication date.
+        /// Gets or sets the created on date
         /// </summary>
-        /// <value>
-        /// The last authentication.
-        /// </value>
-        public DateTime? LastAuthentication { get; set; }
-
-        /// <summary>
-        /// Gets or sets the created on date.
-        /// </summary>
-        /// <value>
-        /// The created on.
-        /// </value>
         public DateTime CreatedOn { get; set; }
 
         /// <summary>
-        /// Gets or sets the updated on date.
+        /// Gets or sets the updated on date
         /// </summary>
-        /// <value>
-        /// The updated on.
-        /// </value>
         public DateTime UpdatedOn { get; set; }
     }
 }

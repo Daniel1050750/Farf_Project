@@ -13,42 +13,23 @@ namespace Farf_Project.Infrastructure
     {
         #region SQL
 
-#pragma warning disable CS0414 // The field 'RoutesRepository.GET_USERS_SQL' is assigned but its value is never used
-        private static readonly string GET_USERS_SQL = @"SELECT u.*, r.*
-                                                            FROM ""Route"" u
-                                                            INNER JOIN Role AS r ON r.Id = u.RoleId
-                                                         WHERE u.IsDeleted = FALSE"
-#pragma warning restore CS0414 // The field 'RoutesRepository.GET_USERS_SQL' is assigned but its value is never used
-;
+        private static readonly string GET_ROUTES_SQL = @"SELECT * FROM ""Route"" WHERE IsDeleted = FALSE";
+        
+        private static readonly string GET_ROUTE_SQL = @"SELECT * FROM ""Route"" WHERE id = @id AND IsDeleted = FALSE";
 
-#pragma warning disable CS0414 // The field 'RoutesRepository.GET_USER_SQL' is assigned but its value is never used
-        private static readonly string GET_USER_SQL = @"SELECT u.*, r.*
-                                                            FROM ""Route"" u
-                                                            INNER JOIN Role AS r ON r.Id = u.RoleId
-                                                         WHERE u.id = @id AND u.IsDeleted = FALSE"
-#pragma warning restore CS0414 // The field 'RoutesRepository.GET_USER_SQL' is assigned but its value is never used
-;
+        private static readonly string GET_POINT_ON_ROUTE_SQL = @"SELECT * FROM ""Route"" WHERE (PointStart = @id OR PointEnd = @id)  AND IsDeleted = FALSE";
 
-        private static readonly string GET_USER_BY_USERNAME_SQL = @"SELECT * FROM ""Route""
-                                                                    WHERE routename = @routename AND IsDeleted = FALSE";
+        private static readonly string GET_ROUTE_BY_NAME_SQL = @"SELECT * FROM ""Route"" WHERE Name = @Name AND IsDeleted = FALSE";
 
-        private static readonly string CREATE_USER_SQL = @"INSERT INTO ""Route"" (Id, Name, Routename, RoleId, State, Password, PasswordSalt)
-                                                           VALUES(@Id, @Name, @Routename, @RoleId, @State, @Password, @PasswordSalt)";
+        private static readonly string CREATE_ROUTE_SQL = @"INSERT INTO ""Route"" (Id, Name, PointStart, PointEnd, RoutePrice, RouteTime, State)
+                                                           VALUES(@Id, @Name, @PointStart, @PointEnd, @RoutePrice, @RouteTime, @State)";
 
-        private static readonly string DELETE_USER_SQL = @"UPDATE ""Route"" u SET IsDeleted = TRUE
-                                                            WHERE u.Id = @Id";
+        private static readonly string DELETE_ROUTE_SQL = @"UPDATE ""Route"" SET IsDeleted = TRUE WHERE Id = @Id";
 
-        private static readonly string GET_PASSWORD_SALT_FROM_USER_SQL = @" SELECT PasswordSalt FROM ""Route""
-                                                                            WHERE id = @id AND IsDeleted = FALSE";
-
-        private static readonly string VERIFY_PASSWORD_FROM_USER_SQL = @"SELECT COUNT(*) from ""Route""
-                                                                         WHERE id = @id AND password = @password AND IsDeleted = FALSE";
-
-        private static readonly string UPDATE_USER_SQL = @"UPDATE ""Route"" u SET Name = @Name, Routename = @Routename, RoleId = @RoleId, State = @State
-                                                                       WHERE u.Id = @Id and IsDeleted = FALSE";
-
-        private static readonly string UPDATE_USERPASSWORD_SQL = @"UPDATE ""Route"" u SET Password = @Password, PasswordSalt = @PasswordSalt
-                                                                       WHERE u.Id = @Id and u.IsDeleted = FALSE";
+        private static readonly string UPDATE_ROUTE_SQL = @"UPDATE ""Route""
+                                                                    SET Name = @Name, PointStart = @PointStart, PointEnd = @PointEnd, 
+                                                                    RoutePrice = @RoutePrice, RouteTime = @RouteTime, State = @State
+                                                                       WHERE Id = @Id and IsDeleted = FALSE";
 
         #endregion SQL
 
@@ -59,122 +40,94 @@ namespace Farf_Project.Infrastructure
             this.dbConnection = dbConnection;
         }
 
-#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+        /// <summary>
+        /// Get all active routes
+        /// </summary>
+        /// <returns>Routes list</returns>
         public async Task<IEnumerable<Route>> GetRoutesAsync()
-#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {            
-            var lookup = new Dictionary<Guid, Route>();
-            //await this.dbConnection.QueryAsync<Route>(
-            //    GET_USERS_SQL,
-            //    (u, r) =>
-            //    {
-            //        if (!lookup.TryGetValue(u.Id, out Route route))
-            //        {
-            //            lookup.Add(u.Id, route = u);
-            //        }
-
-            //        if (r.Id != Guid.Empty)
-            //        {
-            //            route.Role = r;
-            //        }
-
-            //        return route;
-            //    },
-            //    splitOn: "RoleId"
-            //);
-
-            var routes = lookup.Select(x => x.Value).ToList();
-
+            var routes = await this.dbConnection.QueryAsync<Route>(GET_ROUTES_SQL);
             return routes;
         }
 
-#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
+        /// <summary>
+        /// Get route by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Route</returns>
         public async Task<Route> GetRouteAsync(Guid id)
-#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
-            Route route = null;
-            //await this.dbConnection.QueryAsync<Route>(
-            //    GET_USER_SQL,
-            //    (u, r) =>
-            //    {
-            //        if (route == null)
-            //        {
-            //            route = u;
-            //        }
-
-            //        if (r.Id != Guid.Empty)
-            //        {
-            //            route.Role = r;
-            //        }
-
-            //        return route;
-            //    },
-            //    splitOn: "RoleId",
-            //    param: new { Id = id }
-            //);
-
+            var route = await this.dbConnection.QueryFirstOrDefaultAsync<Route>(GET_ROUTE_SQL, new { ID = id });
             return route;
         }
 
-        public async Task CreateRouteAsync(Route route, string password, string passwordSalt)
+        /// <summary>
+        /// Create new route
+        /// </summary>
+        /// <param name="route"></param>
+        public async Task CreateRouteAsync(Route route)
         {
             var newRoute = new
             {
                 route.Id,
-                route.Name,
-                Password = password,
-                PasswordSalt = passwordSalt
+                Name = route.Name.ToLowerInvariant(),
+                route.PointStart,
+                route.PointEnd,
+                route.RoutePrice,
+                route.RouteTime,
+                route.State
             };
-
-            await this.dbConnection.ExecuteAsync(CREATE_USER_SQL, newRoute);
+            await this.dbConnection.ExecuteAsync(CREATE_ROUTE_SQL, newRoute);
         }
 
+        /// <summary>
+        /// Get route by name
+        /// </summary>
+        /// <param name="routename"></param>
+        /// <returns>Route</returns>
         public async Task<Route> GetRouteByRoutenameAsync(string routename)
         {
-            var route = await this.dbConnection.QueryFirstOrDefaultAsync<Route>(GET_USER_BY_USERNAME_SQL, new { routename = routename.ToLowerInvariant() });
-
+            var route = await this.dbConnection.QueryFirstOrDefaultAsync<Route>(GET_ROUTE_BY_NAME_SQL, new { Name = routename.ToLowerInvariant() });
             return route;
         }
 
-        public async Task<string> GetPasswordSaltAsync(Guid routeId)
-        {
-            var salt = await this.dbConnection.QueryFirstOrDefaultAsync<string>(GET_PASSWORD_SALT_FROM_USER_SQL, new { id = routeId });
-
-            return salt;
-        }
-
-        public async Task<bool> VerifyPasswordAsync(Guid routeId, string password)
-        {
-            var validPassword = await this.dbConnection.QueryFirstAsync<bool>(VERIFY_PASSWORD_FROM_USER_SQL, new { id = routeId, password });
-
-            return validPassword;
-        }
-
+        /// <summary>
+        /// Delete route
+        /// </summary>
+        /// <param name="id"></param>
         public async Task DeleteRouteAsync(Guid id)
         {
-            await this.dbConnection.ExecuteAsync(DELETE_USER_SQL, new { Id = id });
+            await this.dbConnection.ExecuteAsync(DELETE_ROUTE_SQL, new { Id = id });
         }
 
+        /// <summary>
+        /// Update route data
+        /// </summary>
+        /// <param name="route"></param>
         public async Task UpdateRouteAsync(Route route)
         {
-            var newRouteAndPassword = new
+            var updateRoute = new
             {
                 route.Id,
-                route.Name
+                Name = route.Name.ToLowerInvariant(),
+                route.PointStart,
+                route.PointEnd,
+                route.RoutePrice,
+                route.RouteTime,
+                route.State
             };
-
-            await this.dbConnection.ExecuteAsync(UPDATE_USER_SQL, newRouteAndPassword);
+            await this.dbConnection.ExecuteAsync(UPDATE_ROUTE_SQL, updateRoute);
         }
 
-        public async Task UpdateRoutePasswordAsync(Guid id, string password, string saltpassword)
+        /// <summary>
+        /// Get point on active route
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Route</returns>
+        public async Task<Route> GetPointOnRoute(Guid id)
         {
-            var newRoute = new
-            {
-                id,
-                Password = password,
-                PasswordSalt = saltpassword
-            };
-            await this.dbConnection.ExecuteAsync(UPDATE_USERPASSWORD_SQL, newRoute);
+            var route = await this.dbConnection.QueryFirstOrDefaultAsync<Route>(GET_POINT_ON_ROUTE_SQL, new { ID = id });
+            return route;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Farf_Project.Web
 
         #region Public Methods
         /// <summary>
-        /// 
+        /// Get all routes
         /// </summary>
         /// <returns></returns>
         [Authorize("administrator")]
@@ -38,8 +38,15 @@ namespace Farf_Project.Web
             return this.Ok(result);
         }
 
+        /// <summary>
+        /// Get best delivery route
+        /// </summary>
+        /// <param name="startpoint"></param>
+        /// <param name="endpoint"></param>
+        /// <returns></returns>
+        [Authorize]
         [HttpGet("/api/routes/create")]
-        public IActionResult GetNewSequence([FromQuery]Guid startpoint, [FromQuery]Guid endpoint)
+        public IActionResult GetNewRoute([FromQuery]Guid startpoint, [FromQuery]Guid endpoint)
         {
             //Enum.TryParse(type, out SequenceType sequenceType);
             //Sequence seq = this.sequencesService.CreateSequence(name, description, sequenceType);
@@ -49,8 +56,7 @@ namespace Farf_Project.Web
         }
 
         /// <summary>
-        /// 
-        /// 
+        /// Get route by ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -64,24 +70,22 @@ namespace Farf_Project.Web
         }
 
         /// <summary>
-        /// 
+        /// Create new route
         /// </summary>
         /// <param name="routeResource"></param>
-        /// <returns></returns>
         [Authorize("administrator")]
         [HttpPost("api/routes")]
         public async Task<IActionResult> CreateRouteAsync([FromBody] RouteResource routeResource)
         {
             var route = RouteResource.Map(routeResource);
-            await this.routesService.CreateRouteAsync(route, routeResource.Password);
+            await this.routesService.CreateRouteAsync(route);
             return this.Ok();
         }
 
         /// <summary>
-        /// 
+        /// Delete route
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
         [Authorize("administrator")]
         [HttpDelete("api/routes/{id}")]
         public async Task<IActionResult> DeleteRouteAsync(Guid id)
@@ -91,19 +95,17 @@ namespace Farf_Project.Web
         }
 
         /// <summary>
-        /// 
+        /// Update route data
         /// </summary>
         /// <param name="routeResource"></param>
-        /// <returns></returns>
         [Authorize("administrator")]
         [HttpPut("api/routes")]
         public async Task<IActionResult> UpdatetRouteAsync([FromBody] RouteResource routeResource)
         {
             var route = RouteResource.Map(routeResource);
-            await this.routesService.UpdateRouteAsync(route, routeResource.Password);
+            await this.routesService.UpdateRouteAsync(route);
             return this.Ok();
         }
-
         #endregion Public Methods
     }
 }

@@ -6,7 +6,6 @@ C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\De
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\Debug\netcoreapp2.1\Farf_Project.Web.Test.runtimeconfig.dev.json
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\Debug\netcoreapp2.1\Farf_Project.Web.Test.dll
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\bin\Debug\netcoreapp2.1\Farf_Project.Web.Test.pdb
-C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.csprojAssemblyReference.cache
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.csproj.CoreCompileInputs.cache
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.AssemblyInfoInputs.cache
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.AssemblyInfo.cs

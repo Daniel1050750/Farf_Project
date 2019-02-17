@@ -17,8 +17,7 @@ CREATE TABLE "User" (
 	Password			VARCHAR(255)	NOT NULL,
 	PasswordSalt		VARCHAR(128)	NOT NULL,
 	State				SMALLINT		NOT NULL,
-	Role				SMALLINT			NOT NULL,
-    LastAuthentication	TIMESTAMP WITHOUT TIME ZONE,                                    -- UTC FORMAT
+	Role				SMALLINT			NOT NULL,                                -- UTC FORMAT
 	CreatedOn 			TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc'), -- UTC FORMAT
 	UpdatedOn           TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc'), -- UTC FORMAT
     IsDeleted           BOOLEAN DEFAULT FALSE,

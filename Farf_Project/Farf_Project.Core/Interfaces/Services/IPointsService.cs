@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Farf_Project.Core
 {
     public interface IPointsService
     {
-        /// <summary>
-        /// Get all points asynchronous.
-        /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        Task<Point> GetPointsAsync(Point point);
-
         /// <summary>
         /// Create a new point asynchronous.
         /// </summary>
@@ -34,13 +26,6 @@ namespace Farf_Project.Core
         /// </summary>
         /// <returns></returns>
         Task<IList<Point>> GetPointsListAsync();
-
-        /// <summary>
-        /// Get point by pointname
-        /// </summary>
-        /// <param name="pointname"></param>
-        /// <returns></returns>
-        Task GetPointAsync(string pointname);
 
         /// <summary>
         /// Gets the point by pointname asynchronous.

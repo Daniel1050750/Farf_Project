@@ -15,21 +15,15 @@ namespace Farf_Project.Infrastructure
 
         private static readonly string GET_POINTS_SQL = @"SELECT * FROM Point WHERE IsDeleted = FALSE";
         
-        private static readonly string GET_POINT_SQL = @"SELECT u.*, r.*
-                                                            FROM ""Point"" u
-                                                            INNER JOIN Role AS r ON r.Id = u.RoleId
-                                                         WHERE u.id = @id AND u.IsDeleted = FALSE";
+        private static readonly string GET_POINT_SQL = @"SELECT * FROM Point WHERE id = @id AND IsDeleted = FALSE";
 
-        private static readonly string GET_USER_BY_USERNAME_SQL = @"SELECT * FROM ""Point""
-                                                                    WHERE pointname = @pointname AND IsDeleted = FALSE";
+        private static readonly string GET_POINT_BY_NAME_SQL = @"SELECT * FROM Point WHERE Name = @Name AND IsDeleted = FALSE";
 
-        private static readonly string CREATE_USER_SQL = @"INSERT INTO ""Point"" (Id, Name, Pointname, RoleId, State, Password, PasswordSalt)
-                                                           VALUES(@Id, @Name, @Pointname, @RoleId, @State, @Password, @PasswordSalt)";
+        private static readonly string CREATE_POINT_SQL = @"INSERT INTO Point (Id, Name, Address, State) VALUES(@Id, @Name, @Address, @State)";
 
-        private static readonly string DELETE_POINT_SQL = @"UPDATE Point SET IsDeleted = TRUE WHERE u.Id = @Id";
+        private static readonly string DELETE_POINT_SQL = @"UPDATE Point SET IsDeleted = TRUE WHERE Id = @Id";
 
-        private static readonly string UPDATE_POINT_SQL = @"UPDATE Point SET Name = @Name, Pointname = @Pointname, RoleId = @RoleId, State = @State
-                                                                       WHERE u.Id = @Id and IsDeleted = FALSE";
+        private static readonly string UPDATE_POINT_SQL = @"UPDATE Point SET Name = @Name, Address = @Address, State = @State WHERE Id = @Id and IsDeleted = FALSE";
 
         #endregion SQL
 
@@ -40,74 +34,78 @@ namespace Farf_Project.Infrastructure
             this.dbConnection = dbConnection;
         }
 
+        /// <summary>
+        /// Get all active points
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Point>> GetPointsAsync()
         {            
-            var lookup = new Dictionary<Guid, Point>();
-            await this.dbConnection.QueryAsync<Point>(GET_POINTS_SQL);
-            var points = lookup.Select(x => x.Value).ToList();
+            var points = await this.dbConnection.QueryAsync<Point>(GET_POINTS_SQL);
             return points;
         }
 
+        /// <summary>
+        /// Get point by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Point> GetPointAsync(Guid id)
         {
-            Point point = null;
-            //await this.dbConnection.QueryAsync<Point>(
-            //    GET_USER_SQL,
-            //    (u, r) =>
-            //    {
-            //        if (point == null)
-            //        {
-            //            point = u;
-            //        }
-
-            //        if (r.Id != Guid.Empty)
-            //        {
-            //            point.Role = r;
-            //        }
-
-            //        return point;
-            //    },
-            //    splitOn: "RoleId",
-            //    param: new { Id = id }
-            //);
-
+            var point = await this.dbConnection.QueryFirstOrDefaultAsync<Point>(GET_POINT_SQL, new { Id = id });
             return point;
         }
 
+        /// <summary>
+        /// Create new point
+        /// </summary>
+        /// <param name="point"></param>
         public async Task CreatePointAsync(Point point)
         {
-            var newPoint = new
+            var newpoint = new
             {
                 point.Id,
-                point.Name,
+                Name = point.Name.ToLowerInvariant(),
+                point.Address,
                 point.State
             };
-
-            await this.dbConnection.ExecuteAsync(CREATE_USER_SQL, newPoint);
+            await this.dbConnection.ExecuteAsync(CREATE_POINT_SQL, newpoint);
         }
 
+        /// <summary>
+        /// Get point by name
+        /// </summary>
+        /// <param name="pointname"></param>
+        /// <returns>Point</returns>
         public async Task<Point> GetPointByPointnameAsync(string pointname)
         {
-            var point = await this.dbConnection.QueryFirstOrDefaultAsync<Point>(GET_USER_BY_USERNAME_SQL, new { pointname = pointname.ToLowerInvariant() });
-
+            var point = await this.dbConnection.QueryFirstOrDefaultAsync<Point>(GET_POINT_BY_NAME_SQL, new { Name = pointname.ToLowerInvariant()});
             return point;
         }
 
+        /// <summary>
+        /// Update isDeleted to TRUE
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task DeletePointAsync(Guid id)
         {
             await this.dbConnection.ExecuteAsync(DELETE_POINT_SQL, new { Id = id });
         }
 
+        /// <summary>
+        /// Update piont data
+        /// </summary>
+        /// <param name="point"></param>
         public async Task UpdatePointAsync(Point point)
         {
-            var newPointAndPassword = new
+            var updatePoint = new
             {
                 point.Id,
-                point.Name,
+                Name = point.Name.ToLowerInvariant(),
+                point.Address,
                 point.State
             };
-
-            await this.dbConnection.ExecuteAsync(UPDATE_POINT_SQL, newPointAndPassword);
+            await this.dbConnection.ExecuteAsync(UPDATE_POINT_SQL, updatePoint);
         }
     }
 }

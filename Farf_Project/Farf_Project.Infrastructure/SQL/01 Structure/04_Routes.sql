@@ -7,12 +7,12 @@ CREATE TABLE RouteState (
 -- Create Route table
 CREATE TABLE "Route" (
 	Id 					UUID 			NOT NULL,
+	Name				VARCHAR(255)	NOT NULL,
 	PointStart			UUID			NOT NULL,
 	PointEnd			UUID			NOT NULL,
 	RoutePrice			BIGSERIAL		NOT NULL,
 	RouteTime			BIGSERIAL		NOT NULL,
-	State				SMALLINT		NOT NULL,
-    LastAuthentication	TIMESTAMP WITHOUT TIME ZONE,                                    -- UTC FORMAT
+	State				SMALLINT		NOT NULL,                                -- UTC FORMAT
 	CreatedOn 			TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc'), -- UTC FORMAT
 	UpdatedOn           TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'utc'), -- UTC FORMAT
     IsDeleted           BOOLEAN DEFAULT FALSE,

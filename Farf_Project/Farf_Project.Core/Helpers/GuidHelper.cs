@@ -12,7 +12,6 @@ namespace Farf_Project.Core
             {
                 return null;
             }
-
             return value.ToString();
         }
 
@@ -21,7 +20,6 @@ namespace Farf_Project.Core
             if (!string.IsNullOrEmpty(value) && Guid.TryParse(value, out Guid guidValue)) {
                 return guidValue;
             }
-
             return Guid.Empty;
         }
     }

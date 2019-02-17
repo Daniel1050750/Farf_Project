@@ -30,7 +30,6 @@ namespace Farf_Project.Core
     {
         UserNotFound = 1,
         InvalidPassword,
-        UserNotActive,
-        RoleNotAdmin
+        UserNotActive
     }
 }

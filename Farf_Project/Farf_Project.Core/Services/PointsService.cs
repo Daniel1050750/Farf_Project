@@ -14,6 +14,7 @@ namespace Farf_Project.Core
         #region Private Readonly Variable
 
         private readonly IPointsRepository pointsRepository;
+        private readonly IRoutesRepository routesRepository;
 
         #endregion Private Readonly Variable
 
@@ -21,24 +22,23 @@ namespace Farf_Project.Core
 
         private const int MAX_INPUT_LENGTH = 255;
         private const int MIN_INPUT_LENGTH = 4;
-        private const string VALID_USERNAME_PATTERN = @"^[a-zA-Z0-9_@.-]*$";
 
         #endregion Private Constants
 
         #region Constructor
 
-        public PointsService(IPointsRepository pointsRepository)
+        public PointsService(IPointsRepository pointsRepository, IRoutesRepository routesRepository)
         {
             this.pointsRepository = pointsRepository;
+            this.routesRepository = routesRepository;
         }
 
         #endregion Constructor
-
-        public Task<Point> GetPointsAsync(Point point)
-        {
-            return null;
-        }
-
+        /// <summary>
+        /// Get point by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Point> GetPointAsync(Guid id)
         {
             if (Guid.Empty.Equals(id))
@@ -58,18 +58,26 @@ namespace Farf_Project.Core
             }
         }
 
+        /// <summary>
+        /// Get point by name
+        /// </summary>
+        /// <param name="pointname"></param>
+        /// <returns></returns>
         public async Task<Point> GetPointByPointnameAsync(string pointname)
         {
             if (string.IsNullOrEmpty(pointname))
             {
                 throw new ArgumentNullException("The pointname parameter can not be null.");
             }
-
             var point = await this.pointsRepository.GetPointByPointnameAsync(pointname);
-
             return point;
         }
 
+        /// <summary>
+        /// Create new point
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
         public async Task CreatePointAsync(Point point)
         {
             await this.ValidateCreatePointAsync(point);
@@ -81,26 +89,35 @@ namespace Farf_Project.Core
             await this.pointsRepository.CreatePointAsync(point);
         }
 
+        /// <summary>
+        /// Delete point
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task DeletePointAsync(Guid id)
         {
+            await this.ValidateDeletePoint(id);
             await this.pointsRepository.DeletePointAsync(id);
         }
 
-        public async Task GetPointAsync(string pointname)
-        {
-            await this.pointsRepository.GetPointByPointnameAsync(pointname);
-        }
-
+        /// <summary>
+        /// Get all active points
+        /// </summary>
+        /// <returns>Point list</returns>
         public async Task<IList<Point>> GetPointsListAsync()
         {
             var points = await this.pointsRepository.GetPointsAsync();
             return points.ToList();
         }
 
+        /// <summary>
+        /// Update route data
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
         public async Task UpdatePointAsync(Point point)
         {
             await this.ValidateUpdatePointAsync(point);
-
             await this.pointsRepository.UpdatePointAsync(point);
         }
 
@@ -113,20 +130,21 @@ namespace Farf_Project.Core
         private void ValidatePoint(Point point)
         {
             var name = point.Name.Trim();
+            var addr = point.Address.Trim();
 
             if (point == null)
             {
                 throw new MissingArgumentException("The point can't be null.");
             }
 
-            if (name.Replace("\n", string.Empty).Length > MAX_INPUT_LENGTH && name.Replace("\n", string.Empty).Length < MIN_INPUT_LENGTH)
+            if (name.Replace("\n", string.Empty).Length > MAX_INPUT_LENGTH || name.Replace("\n", string.Empty).Length < MIN_INPUT_LENGTH)
             {
-                throw new InvalidArgumentException(string.Format("The routename length must be between {0} and {1} characters", MIN_INPUT_LENGTH, MAX_INPUT_LENGTH));
+                throw new InvalidArgumentException(string.Format("The point name length must be between {0} and {1} characters", MIN_INPUT_LENGTH, MAX_INPUT_LENGTH));
             }
 
-            if (!Regex.IsMatch(name, VALID_USERNAME_PATTERN))
+            if (addr.Replace("\n", string.Empty).Length > MAX_INPUT_LENGTH || addr.Replace("\n", string.Empty).Length < MIN_INPUT_LENGTH)
             {
-                throw new InvalidArgumentException("Allowed characters: a-z A-Z 0-9");
+                throw new InvalidArgumentException(string.Format("The point address length must be between {0} and {1} characters", MIN_INPUT_LENGTH, MAX_INPUT_LENGTH));
             }
 
             if (!Enum.IsDefined(typeof(PointState), point.State))
@@ -136,11 +154,9 @@ namespace Farf_Project.Core
         }
 
         /// <summary>
-        /// Validate password on point update
+        /// Validate point on create
         /// </summary>
         /// <param name="point"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
         private async Task ValidateUpdatePointAsync(Point point)
         {
             this.ValidatePoint(point);
@@ -151,8 +167,19 @@ namespace Farf_Project.Core
             {
                 throw new InvalidArgumentException("Point doesn't exist.");
             }
+
+            var res = await this.pointsRepository.GetPointByPointnameAsync(point.Name);
+
+            if (res != null && res.Id != point.Id)
+            {
+                throw new InvalidArgumentException("Point already in use.");
+            }
         }
 
+        /// <summary>
+        /// Validate point on update
+        /// </summary>
+        /// <param name="point"></param>
         private async Task ValidateCreatePointAsync(Point point)
         {
             this.ValidatePoint(point);
@@ -165,6 +192,15 @@ namespace Farf_Project.Core
             }
         }
 
+        private async Task ValidateDeletePoint(Guid id)
+        {
+            var res = await this.routesRepository.GetPointOnRoute(id);
+
+            if (res != null)
+            {
+                throw new InvalidArgumentException("This point is in used.");
+            }
+        }
         #endregion Private Methods
     }
 }

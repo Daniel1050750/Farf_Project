@@ -16,7 +16,7 @@ namespace Farf_Project.Core
         /// <param name="password">The password.</param>
         /// <param name="passwordSalt">The password salt.</param>
         /// <returns></returns>
-        Task CreateRouteAsync(Route route, string password, string passwordSalt);
+        Task CreateRouteAsync(Route route);
 
         /// <summary>
         /// Gets the routes asynchronous.
@@ -43,21 +43,6 @@ namespace Farf_Project.Core
         Task<Route> GetRouteByRoutenameAsync(string routename);
 
         /// <summary>
-        /// Gets the password salt asynchronous.
-        /// </summary>
-        /// <param name="routeId">The route identifier.</param>
-        /// <returns>The password salt.</returns>
-        Task<string> GetPasswordSaltAsync(Guid routeId);
-
-        /// <summary>
-        /// Verifies the password asynchronous.
-        /// </summary>
-        /// <param name="routeId">The route identifier.</param>
-        /// <param name="password">The password.</param>
-        /// <returns>True if the password is valid for the provided route, false otherwise.</returns>
-        Task<bool> VerifyPasswordAsync(Guid routeId, string password);
-
-        /// <summary>
         /// Deletes the route asynchronously.
         /// </summary>
         /// <param name="id"></param>
@@ -74,12 +59,10 @@ namespace Farf_Project.Core
         Task UpdateRouteAsync(Route route);
 
         /// <summary>
-        /// Update route password
+        /// Get point on active route
         /// </summary>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
-        Task UpdateRoutePasswordAsync(Guid id, string securePassword, string salt);
+        /// <param name="id"></param>
+        /// <returns>Route</returns>
+        Task<Route> GetPointOnRoute(Guid id);
     }
 }

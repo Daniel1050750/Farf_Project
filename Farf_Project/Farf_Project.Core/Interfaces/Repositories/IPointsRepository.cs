@@ -10,12 +10,11 @@ namespace Farf_Project.Core
     public interface IPointsRepository
     {
         /// <summary>
-        /// Creates the point asynchronous.
+        /// Creates the point asynchronous
         /// </summary>
-        /// <param name="point">The point.</param>
-        /// <param name="password">The password.</param>
+        /// <param name="point">The point</param>
+        /// <param name="password">The password</param>
         /// <param name="passwordSalt">The password salt.</param>
-        /// <returns></returns>
         Task CreatePointAsync(Point point);
 
         /// <summary>

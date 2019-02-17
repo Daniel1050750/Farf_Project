@@ -26,6 +26,10 @@ namespace Farf_Project.Web
         #endregion Constructor
 
         #region Public Methods       
+        /// <summary>
+        /// Get all points
+        /// </summary>
+        /// <returns>Points</returns>
         [HttpGet("api/points")]
         public async Task<IActionResult> GetPointsAsync()
         {
@@ -34,6 +38,11 @@ namespace Farf_Project.Web
             return this.Ok(result);
         }
 
+        /// <summary>
+        /// Get point by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Point</returns>
         [HttpGet("api/points/{id}")]
         public async Task<IActionResult> GetPointAsync(Guid id)
         {
@@ -42,6 +51,10 @@ namespace Farf_Project.Web
             return this.Ok(pointRes);
         }
 
+        /// <summary>
+        /// Create new point
+        /// </summary>
+        /// <param name="pointResource"></param>        
         [HttpPost("api/points")]
         public async Task<IActionResult> CreatePointAsync([FromBody] PointResource pointResource)
         {
@@ -50,6 +63,10 @@ namespace Farf_Project.Web
             return this.Ok();
         }
 
+        /// <summary>
+        /// Delete point
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("api/points/{id}")]
         public async Task<IActionResult> DeletePointAsync(Guid id)
         {
@@ -57,6 +74,10 @@ namespace Farf_Project.Web
             return this.Ok();
         }
 
+        /// <summary>
+        /// Update point
+        /// </summary>
+        /// <param name="pointResource"></param>
         [HttpPut("api/points")]
         public async Task<IActionResult> UpdatetPointAsync([FromBody] PointResource pointResource)
         {
@@ -64,7 +85,6 @@ namespace Farf_Project.Web
             await this.pointsService.UpdatePointAsync(point);
             return this.Ok();
         }
-
         #endregion Public Methods
     }
 }

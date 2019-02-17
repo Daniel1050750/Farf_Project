@@ -30,7 +30,7 @@ namespace Farf_Project.Web
         /// <summary>
         /// Get all users
         /// </summary>
-        /// <returns></returns>        
+        /// <returns>Users</returns>        
         [HttpGet("api/users")]
         public async Task<IActionResult> GetUsers()
         {
@@ -43,7 +43,7 @@ namespace Farf_Project.Web
         /// Get user by ID
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>User</returns>
         [HttpGet("api/users/{id}")]
         public async Task<IActionResult> GetUser(Guid id)
         {
@@ -56,7 +56,6 @@ namespace Farf_Project.Web
         /// Create new user
         /// </summary>
         /// <param name="userResource"></param>
-        /// <returns></returns>
         [HttpPost("api/users")]
         public async Task<IActionResult> CreateUserAsync([FromBody] UserResource userResource)
         {
@@ -69,7 +68,6 @@ namespace Farf_Project.Web
         /// Delete user by ID
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
         [HttpDelete("api/users/{id}")]
         public async Task<IActionResult> DeleteUserAsync(Guid id)
         {
@@ -81,7 +79,6 @@ namespace Farf_Project.Web
         /// Update user
         /// </summary>
         /// <param name="userResource"></param>
-        /// <returns></returns>
         [HttpPut("api/users")]
         public async Task<IActionResult> UpdatetUser([FromBody] UserResource userResource)
         {

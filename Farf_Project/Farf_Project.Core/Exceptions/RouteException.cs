@@ -29,8 +29,6 @@ namespace Farf_Project.Core
     public enum RouteExceptionType
     {
         RouteNotFound = 1,
-        InvalidPassword,
-        RouteNotActive,
-        RoleNotAdmin
+        RouteNotActive
     }
 }
