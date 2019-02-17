@@ -49,6 +49,14 @@ namespace Farf_Project.Core
         Task<Route> GetRouteByRoutenameAsync(string routename);
 
         /// <summary>
+        /// Gets de delivery sub routes
+        /// </summary>
+        /// <param name="startpoint"></param>
+        /// <param name="endpoint"></param>
+        /// <returns>Delivery sub routes list</returns>
+        Task<IList<IList<Route>>> GetDeliveryRouteAsync(Guid startpoint, Guid endpoint);
+
+        /// <summary>
         /// Gets the route asynchronous.
         /// </summary>
         /// <param name="id">The identifier.</param>

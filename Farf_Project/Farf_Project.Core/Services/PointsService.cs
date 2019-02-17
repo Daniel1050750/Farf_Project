@@ -192,6 +192,11 @@ namespace Farf_Project.Core
             }
         }
 
+        /// <summary>
+        /// Validate Point to delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private async Task ValidateDeletePoint(Guid id)
         {
             var res = await this.routesRepository.GetPointOnRoute(id);

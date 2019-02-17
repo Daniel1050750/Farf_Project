@@ -28,8 +28,8 @@ namespace Farf_Project.Web
         /// <summary>
         /// Get all routes
         /// </summary>
-        /// <returns></returns>
-        [Authorize("administrator")]
+        /// <returns>Routes list</returns>
+        [Authorize]
         [HttpGet("api/routes")]
         public async Task<IActionResult> GetRoutesAsync()
         {
@@ -43,24 +43,21 @@ namespace Farf_Project.Web
         /// </summary>
         /// <param name="startpoint"></param>
         /// <param name="endpoint"></param>
-        /// <returns></returns>
         [Authorize]
-        [HttpGet("/api/routes/create")]
-        public IActionResult GetNewRoute([FromQuery]Guid startpoint, [FromQuery]Guid endpoint)
+        [HttpGet("/api/routes/delivery")]
+        public async Task<IActionResult> GetDeliveryRouteAsync([FromQuery]Guid startpoint, [FromQuery]Guid endpoint)
         {
-            //Enum.TryParse(type, out SequenceType sequenceType);
-            //Sequence seq = this.sequencesService.CreateSequence(name, description, sequenceType);
-            //SequenceResource seqRes = SequenceResource.Map(seq);
-            //return this.Ok(seqRes);
-            return null;
+            var devRout = await this.routesService.GetDeliveryRouteAsync(startpoint, endpoint);
+            // SequenceResource seqRes = SequenceResource.Map(seq);
+            return this.Ok(devRout);
         }
 
         /// <summary>
         /// Get route by ID
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        [Authorize("administrator")]
+        /// <returns>Route</returns>
+        [Authorize]
         [HttpGet("api/routes/{id}")]
         public async Task<IActionResult> GetRouteAsync(Guid id)
         {

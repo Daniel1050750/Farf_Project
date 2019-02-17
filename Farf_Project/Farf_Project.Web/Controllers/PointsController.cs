@@ -6,8 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Farf_Project.Web
-{
-    [Authorize("administrator")]
+{    
     public class PointsController : Controller
     {
         #region Private Readonly Variables
@@ -30,6 +29,7 @@ namespace Farf_Project.Web
         /// Get all points
         /// </summary>
         /// <returns>Points</returns>
+        [Authorize]
         [HttpGet("api/points")]
         public async Task<IActionResult> GetPointsAsync()
         {
@@ -43,6 +43,7 @@ namespace Farf_Project.Web
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Point</returns>
+        [Authorize]
         [HttpGet("api/points/{id}")]
         public async Task<IActionResult> GetPointAsync(Guid id)
         {
@@ -55,6 +56,7 @@ namespace Farf_Project.Web
         /// Create new point
         /// </summary>
         /// <param name="pointResource"></param>        
+        [Authorize("administrator")]
         [HttpPost("api/points")]
         public async Task<IActionResult> CreatePointAsync([FromBody] PointResource pointResource)
         {
@@ -67,6 +69,7 @@ namespace Farf_Project.Web
         /// Delete point
         /// </summary>
         /// <param name="id"></param>
+        [Authorize("administrator")]
         [HttpDelete("api/points/{id}")]
         public async Task<IActionResult> DeletePointAsync(Guid id)
         {
@@ -78,6 +81,7 @@ namespace Farf_Project.Web
         /// Update point
         /// </summary>
         /// <param name="pointResource"></param>
+        [Authorize("administrator")]
         [HttpPut("api/points")]
         public async Task<IActionResult> UpdatetPointAsync([FromBody] PointResource pointResource)
         {

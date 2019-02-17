@@ -11,3 +11,4 @@ C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\De
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.AssemblyInfo.cs
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.dll
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.pdb
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Test\obj\Debug\netcoreapp2.1\Farf_Project.Web.Test.csprojAssemblyReference.cache

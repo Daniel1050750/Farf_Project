@@ -64,5 +64,17 @@ namespace Farf_Project.Core
         /// <param name="id"></param>
         /// <returns>Route</returns>
         Task<Route> GetPointOnRoute(Guid id);
+
+        /// <summary>
+        /// Gets the routes with start point with ID asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Route>> GetRoutesWithStartPoint(Guid id);
+
+        /// <summary>
+        /// Gets the routes with end point with ID asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<Route>> GetRoutesWithEndPoint(Guid id);
     }
 }

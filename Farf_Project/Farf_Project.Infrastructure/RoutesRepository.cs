@@ -17,7 +17,11 @@ namespace Farf_Project.Infrastructure
         
         private static readonly string GET_ROUTE_SQL = @"SELECT * FROM ""Route"" WHERE id = @id AND IsDeleted = FALSE";
 
-        private static readonly string GET_POINT_ON_ROUTE_SQL = @"SELECT * FROM ""Route"" WHERE (PointStart = @id OR PointEnd = @id)  AND IsDeleted = FALSE";
+        private static readonly string GET_POINT_ON_ROUTE_SQL = @"SELECT * FROM ""Route"" WHERE (PointStart = @id OR PointEnd = @id) AND IsDeleted = FALSE";
+
+        private static readonly string GET_SP_ROUTES_SQL = @"SELECT * FROM ""Route"" WHERE PointStart = @PointStart AND IsDeleted = FALSE";
+
+        private static readonly string GET_EP_ROUTES_SQL = @"SELECT * FROM ""Route"" WHERE PointEnd = @PointEnd AND IsDeleted = FALSE";
 
         private static readonly string GET_ROUTE_BY_NAME_SQL = @"SELECT * FROM ""Route"" WHERE Name = @Name AND IsDeleted = FALSE";
 
@@ -128,6 +132,28 @@ namespace Farf_Project.Infrastructure
         {
             var route = await this.dbConnection.QueryFirstOrDefaultAsync<Route>(GET_POINT_ON_ROUTE_SQL, new { ID = id });
             return route;
+        }
+
+        /// <summary>
+        /// Find all routes with this ID start point
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Route>> GetRoutesWithStartPoint(Guid id)
+        {
+            var routes = await this.dbConnection.QueryAsync<Route>(GET_SP_ROUTES_SQL, new { PointStart = id });
+            return routes;
+        }
+
+        /// <summary>
+        /// Find all routes with this ID end point
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Route>> GetRoutesWithEndPoint(Guid id)
+        {
+            var routes = await this.dbConnection.QueryAsync<Route>(GET_EP_ROUTES_SQL, new { PointEnd = id });
+            return routes;
         }
     }
 }

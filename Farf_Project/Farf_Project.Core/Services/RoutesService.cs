@@ -143,6 +143,47 @@ namespace Farf_Project.Core
             await this.routesRepository.UpdateRouteAsync(route);
         }
 
+        /// <summary>
+        /// Get delivery route
+        /// </summary>
+        /// <param name="sPoint"></param>
+        /// <param name="ePoint"></param>
+        /// <returns></returns>
+        public async Task<IList<IList<Route>>> GetDeliveryRouteAsync(Guid sPoint, Guid ePoint)
+        {
+            if (Guid.Empty.Equals(sPoint))
+            {
+                throw new ArgumentNullException("The start point can not be empty.");
+            }
+
+            var pointStart = await this.pointsRepository.GetPointAsync(sPoint);
+
+            if (pointStart == null)
+            {
+                throw new ArgumentNullException("The start point not exists anymore.");
+            }
+
+            if (Guid.Empty.Equals(ePoint))
+            {
+                throw new ArgumentNullException("The end point can not be empty.");
+            }
+
+            var endPoint = await this.pointsRepository.GetPointAsync(ePoint);
+
+            if (endPoint == null)
+            {
+                throw new ArgumentNullException("The end point not exists anymore.");
+            }
+
+            if (ePoint == sPoint)
+            {
+                throw new ArgumentNullException("The start and end point can not be the same.");
+            }
+
+            var routes = await this.ValidateDeliveryRouteAsync(sPoint, ePoint);
+            return routes.ToList();
+        }
+
         #region Private Methods
         /// <summary>
         /// Generic route validations
@@ -220,6 +261,29 @@ namespace Farf_Project.Core
             {
                 throw new InvalidArgumentException("Route name already in use.");
             }
+        }
+
+        /// <summary>
+        /// Calculate all delivery route
+        /// </summary>
+        /// <param name="sPoint"></param>
+        /// <param name="ePoint"></param>
+        /// <returns></returns>
+        private async Task<IList<IList<Route>>> ValidateDeliveryRouteAsync(Guid sPoint, Guid ePoint)
+        {
+            var spRoutes = await this.routesRepository.GetRoutesWithStartPoint(sPoint);
+            var epRoutes = await this.routesRepository.GetRoutesWithEndPoint(ePoint);
+
+            if (spRoutes == null || epRoutes == null)
+            {
+                throw new InvalidArgumentException("Route can not be calculated.");
+            }
+            
+            //foreach (var item in spRoutes)
+            //{
+
+            //}
+            return null;
         }
         #endregion Private Methods
     }
