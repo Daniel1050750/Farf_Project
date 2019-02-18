@@ -1,0 +1,8 @@
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\bin\Release\netcoreapp2.1\Farf_Project.Core.deps.json
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\bin\Release\netcoreapp2.1\Farf_Project.Core.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\bin\Release\netcoreapp2.1\Farf_Project.Core.pdb
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\obj\Release\netcoreapp2.1\Farf_Project.Core.csproj.CoreCompileInputs.cache
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\obj\Release\netcoreapp2.1\Farf_Project.Core.AssemblyInfoInputs.cache
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\obj\Release\netcoreapp2.1\Farf_Project.Core.AssemblyInfo.cs
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\obj\Release\netcoreapp2.1\Farf_Project.Core.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\obj\Release\netcoreapp2.1\Farf_Project.Core.pdb
