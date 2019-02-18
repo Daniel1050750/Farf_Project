@@ -1,7 +1,6 @@
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
-C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\bin\Debug\netcoreapp2.1\appsettings.json
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\bin\Debug\netcoreapp2.1\Farf_Project.Web.Testing.deps.json
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\bin\Debug\netcoreapp2.1\Farf_Project.Web.Testing.runtimeconfig.json
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\bin\Debug\netcoreapp2.1\Farf_Project.Web.Testing.runtimeconfig.dev.json

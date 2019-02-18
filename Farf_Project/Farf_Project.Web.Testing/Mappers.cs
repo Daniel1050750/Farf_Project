@@ -14,7 +14,7 @@ namespace Farf_Project.Web.Testing
                 Id = Guid.NewGuid().ToString(),
                 Username = "DSilva",
                 State = "Active",
-                Role = "Admin"
+                Role = "Administrator"
             };
 
             var entity = UserResource.Map(resources);

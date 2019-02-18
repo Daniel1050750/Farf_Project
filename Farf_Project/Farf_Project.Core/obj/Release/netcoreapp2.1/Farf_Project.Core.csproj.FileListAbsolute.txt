@@ -6,3 +6,4 @@ C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\obj\Releas
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\obj\Release\netcoreapp2.1\Farf_Project.Core.AssemblyInfo.cs
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\obj\Release\netcoreapp2.1\Farf_Project.Core.dll
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\obj\Release\netcoreapp2.1\Farf_Project.Core.pdb
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Core\obj\Release\netcoreapp2.1\Farf_Project.Core.csprojAssemblyReference.cache
