@@ -15,5 +15,5 @@
   
   ## Go to Postman folder.
     ## Import the Postman Collection and Environment to test the API.       
-      # Only registed users can access to API functions
+      # Only registered users can access to API functions
       # Only administrator users can create, update and delete data.
