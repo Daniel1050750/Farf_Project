@@ -7,7 +7,7 @@
     Password=1029384756;
     Database=farf
       
-      ## Run the SQL on SQL folder -> this is the structure and data to DB
+      ## Run the SQL on SQL folder -> contains the structure and the initial data
 
 
   ## Execute the Farf_Project
