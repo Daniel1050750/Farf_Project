@@ -317,7 +317,7 @@ namespace Farf_Project.Core
         }
 
         /// <summary>
-        /// Filter data
+        /// Filter data to retrive the best route
         /// </summary>
         /// <returns></returns>
         private List<Route> FilterBestRouteOption()

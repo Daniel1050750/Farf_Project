@@ -1,0 +1,14 @@
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\bin\Release\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\bin\Release\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\bin\Release\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\bin\Release\netcoreapp2.1\Farf_Project.Tester.deps.json
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\bin\Release\netcoreapp2.1\Farf_Project.Tester.runtimeconfig.json
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\bin\Release\netcoreapp2.1\Farf_Project.Tester.runtimeconfig.dev.json
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\bin\Release\netcoreapp2.1\Farf_Project.Tester.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\bin\Release\netcoreapp2.1\Farf_Project.Tester.pdb
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\obj\Release\netcoreapp2.1\Farf_Project.Tester.csprojAssemblyReference.cache
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\obj\Release\netcoreapp2.1\Farf_Project.Tester.csproj.CoreCompileInputs.cache
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\obj\Release\netcoreapp2.1\Farf_Project.Tester.AssemblyInfoInputs.cache
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\obj\Release\netcoreapp2.1\Farf_Project.Tester.AssemblyInfo.cs
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\obj\Release\netcoreapp2.1\Farf_Project.Tester.dll
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Tester\obj\Release\netcoreapp2.1\Farf_Project.Tester.pdb
