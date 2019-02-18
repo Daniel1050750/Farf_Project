@@ -54,7 +54,7 @@ namespace Farf_Project.Core
         /// <param name="startpoint"></param>
         /// <param name="endpoint"></param>
         /// <returns>Delivery sub routes list</returns>
-        Task<IList<IList<Route>>> GetDeliveryRouteAsync(Guid startpoint, Guid endpoint);
+        Task<IList<Route>> GetDeliveryRouteAsync(Guid startpoint, Guid endpoint);
 
         /// <summary>
         /// Gets the route asynchronous.

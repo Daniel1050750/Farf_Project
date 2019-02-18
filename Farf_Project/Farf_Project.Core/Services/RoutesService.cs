@@ -19,7 +19,8 @@ namespace Farf_Project.Core
         #endregion Private Readonly Variable
 
         #region Private Constants
-
+        List<List<Route>> routesList;
+        List<Route> tempRouteList;
         private const int MAX_INPUT_LENGTH = 255;
         private const int MIN_INPUT_LENGTH = 4;
 
@@ -149,7 +150,7 @@ namespace Farf_Project.Core
         /// <param name="sPoint"></param>
         /// <param name="ePoint"></param>
         /// <returns></returns>
-        public async Task<IList<IList<Route>>> GetDeliveryRouteAsync(Guid sPoint, Guid ePoint)
+        public async Task<IList<Route>> GetDeliveryRouteAsync(Guid sPoint, Guid ePoint)
         {
             if (Guid.Empty.Equals(sPoint))
             {
@@ -269,8 +270,10 @@ namespace Farf_Project.Core
         /// <param name="sPoint"></param>
         /// <param name="ePoint"></param>
         /// <returns></returns>
-        private async Task<IList<IList<Route>>> ValidateDeliveryRouteAsync(Guid sPoint, Guid ePoint)
+        private async Task<IList<Route>> ValidateDeliveryRouteAsync(Guid sPoint, Guid ePoint)
         {
+            //var routesList = new List<Route>();
+
             var spRoutes = await this.routesRepository.GetRoutesWithStartPoint(sPoint);
             var epRoutes = await this.routesRepository.GetRoutesWithEndPoint(ePoint);
 
@@ -278,12 +281,68 @@ namespace Farf_Project.Core
             {
                 throw new InvalidArgumentException("Route can not be calculated.");
             }
-            
-            //foreach (var item in spRoutes)
-            //{
 
-            //}
-            return null;
+            this.routesList = new List<List<Route>>();
+            this.tempRouteList = new List<Route>();
+
+            await this.RouteCalc(spRoutes, ePoint);
+
+            var result = this.FilterBestRouteOption();
+        
+            return result;
+        }
+
+        /// <summary>
+        /// Recursive method to validate routes 
+        /// </summary>
+        /// <param name="startRoute"></param>
+        /// <param name="ePoint"></param>
+        /// <returns></returns>
+        private async Task RouteCalc(IEnumerable<Route> startRoute, Guid ePoint)
+        {
+            foreach (var item in startRoute)
+            {
+                this.tempRouteList.Add(item);
+                if (item.PointEnd == ePoint)
+                {
+                    this.routesList.Add(this.tempRouteList);
+                    this.tempRouteList = new List<Route>();
+                }
+                else
+                {
+                    var spRoutes = await this.routesRepository.GetRoutesWithStartPoint(item.PointEnd);
+                    await this.RouteCalc(spRoutes, ePoint);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Filter data
+        /// </summary>
+        /// <returns></returns>
+        private List<Route> FilterBestRouteOption()
+        {
+            var price = 9999999;
+            var time = 9999999;
+            var result = new List<Route>();
+            var filterFullList = this.routesList.Where(x => x.Count > 2);
+            foreach (var item in filterFullList)
+            {
+                var newPrice = item.Sum(a => a.RoutePrice);
+                var newTime = item.Sum(a => a.RouteTime);
+                if (newPrice < price)
+                {
+                    result = item;
+                }
+                else if (newPrice == price)
+                {
+                    if(newTime < time)
+                    {
+                        result = item;
+                    }
+                }
+            }
+            return result;
         }
         #endregion Private Methods
     }

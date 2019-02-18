@@ -48,7 +48,7 @@ namespace Farf_Project.Web
         public async Task<IActionResult> GetDeliveryRouteAsync([FromQuery]Guid startpoint, [FromQuery]Guid endpoint)
         {
             var devRout = await this.routesService.GetDeliveryRouteAsync(startpoint, endpoint);
-            // SequenceResource seqRes = SequenceResource.Map(seq);
+            var result = devRout.Select(u => RouteResource.Map(u));
             return this.Ok(devRout);
         }
 

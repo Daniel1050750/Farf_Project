@@ -1,0 +1,776 @@
+{
+	"info": {
+		"_postman_id": "e4f6e5c4-d47c-4bbd-8459-8b2104b07590",
+		"name": "Farf_Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Post New User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29b309a8-5f0c-4f40-97d3-50e8f18f4137",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\tid: null, \r\n\tusername: \"dsilva\",\r\n\tpassword: \"123456\",\r\n\tstate: \"Active\",\r\n\trole:\"Operator\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/users",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/users",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/users/755ea1f8-b453-4425-ae93-135a0f27b794",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"755ea1f8-b453-4425-ae93-135a0f27b794"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0c4d59d9-fd75-427b-bd0e-9fe3ed836d5b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6c81274-9b1c-44e5-aa9f-5c5456458af8",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\tid: \"755ea1f8-b453-4425-ae93-135a0f27b794\", \r\n\tusername: \"Admin\",\r\n\tpassword: \"123456789\",\r\n\tstate: \"Active\",\r\n\trole:\"Operator\"\r\n}"
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/users",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1743c5d-b16c-4567-88a3-f3458edafb30",
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/users/6b2404ad-d335-4240-a5a3-154a5b4383d7",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"6b2404ad-d335-4240-a5a3-154a5b4383d7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Points",
+			"item": [
+				{
+					"name": "Post New Point",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29b309a8-5f0c-4f40-97d3-50e8f18f4137",
+								"exec": [
+									"pm.test(\"Login suceeds - 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"var token = \"Bearer \" + jsonData.token; // pass toke to a variable ",
+									"  ",
+									"pm.environment.set(\"token\",  token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Aut",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\tid: null, \r\n\tname: \"dsilva\",\r\n\taddress: \"123456\",\r\n\tstate: \"Active\"\r\n}"
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/points",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"points"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Points",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/points",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"points"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Point",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"username\":\"admin\",\r\n   \"password\":\"admin\"\r\n}"
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/points/755ea1f8-b453-4425-ae93-135a0f27a123",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"points",
+								"755ea1f8-b453-4425-ae93-135a0f27a123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Point",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0c4d59d9-fd75-427b-bd0e-9fe3ed836d5b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6c81274-9b1c-44e5-aa9f-5c5456458af8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\":\"{{seqDelete}}\",\"name\":\"{{seqNewName}}\",\"description\":\"{{seqNewDescription}}\",\"createDate\":\"2018-08-30T10:31:07.9160000Z\",\"lastUpdateDate\":\"2018-08-30T10:31:07.9160000Z\",\"lastUpdateUser\":\"José Carlos\",\"variables\":[{\"id\":\"5714d3ba-ff6d-43d9-a2f4-774a2915e49d\",\"name\":\"Result1\",\"type\":\"String\"},{\"id\":\"bc767406-7198-49b0-b58a-71baff1e5a53\",\"name\":\"Result2\",\"type\":\"String\"},{\"id\":\"4442a0ba-1f5c-4498-9424-a62f242ad3a3\",\"name\":\"Result3\",\"type\":\"String\"},{\"id\":\"ab24b739-535a-4997-8c86-6938753a8f68\",\"name\":\"Result4\",\"type\":\"String\"},{\"id\":\"563fb883-8123-4a5d-a8b2-3f51ccdb2481\",\"name\":\"Result5\",\"type\":\"String\"},{\"id\":\"cc626be8-104c-40b3-9813-593bd1c41230\",\"name\":\"Result6\",\"type\":\"String\"},{\"id\":\"19510f37-be5a-4199-81e9-08927edcdf24\",\"name\":\"Result7\",\"type\":\"String\"},{\"id\":\"0d3c94a9-d950-4a63-ae6c-a54884c90f1d\",\"name\":\"Result8\",\"type\":\"String\"},{\"id\":\"caf3083e-c2fb-417c-98a1-203e0b2a4511\",\"name\":\"Result9\",\"type\":\"String\"}],\"instructions\":[{\"id\":\"cc260cd5-86a2-404a-ae26-5d1638399150\",\"nextInstructionId\":\"481a1d69-e294-41c0-b40e-bcfbdb9ee68f\",\"type\":\"Start\",\"position\":{\"x\":20,\"y\":20},\"instructionMetadata\":{\"id\":\"d5ecff04-424f-4f9b-b2e0-0e3696a0bc07\",\"name\":\"Start\",\"color\":\"#000000\",\"type\":\"Start\",\"canBeRemoved\":false,\"canBeConnected\":false,\"canConnect\":true}},{\"id\":\"481a1d69-e294-41c0-b40e-bcfbdb9ee68f\",\"nextInstructionId\":\"80cb6f36-c607-4811-bd6a-84347e134b51\",\"type\":\"SetVariable\",\"position\":{\"x\":283,\"y\":158},\"instructionMetadata\":{\"id\":null,\"name\":\"Result2\",\"color\":\"#0072BB\",\"type\":\"SetVariable\",\"canBeRemoved\":true,\"canBeConnected\":true,\"canConnect\":true},\"value\":\"3\",\"variable\":{\"id\":\"bc767406-7198-49b0-b58a-71baff1e5a53\",\"name\":\"Result2\",\"type\":\"String\"}},{\"id\":\"80cb6f36-c607-4811-bd6a-84347e134b51\",\"nextInstructionId\":\"9ba923b8-f4e9-42dc-b19e-d2d6cb1ed399\",\"type\":\"Function\",\"position\":{\"x\":558,\"y\":313},\"instructionMetadata\":{\"id\":\"75a35ad2-ac1a-616e-5503-276506543dab\",\"name\":\"Diferenca\",\"color\":\"#8BC640\",\"type\":\"Function\",\"returnDomainType\":\"String\",\"canBeRemoved\":true,\"canBeConnected\":true,\"canConnect\":true,\"parameters\":[{\"id\":\"b422b370-9e7c-82fb-bb52-62b24488f580\",\"type\":\"0\",\"name\":\"Param #1\"},{\"id\":\"1e2444fb-88cf-7059-2068-16642cc61963\",\"type\":\"0\",\"name\":\"Param #2\"},{\"id\":\"49cede33-3969-4307-b6be-418bb347a571\",\"type\":\"0\",\"name\":\"Param #3\"}]},\"parameters\":[{\"id\":\"9445f40f-65d3-4b5a-b415-cd5eaa3d52a1\",\"value\":\"4\",\"parameterMetadata\":{\"id\":\"b422b370-9e7c-82fb-bb52-62b24488f580\",\"type\":\"0\",\"name\":\"Param #1\"}},{\"id\":\"c7d0ca6b-7f1f-44e7-a3e7-448b6935a6e9\",\"value\":\"4\",\"parameterMetadata\":{\"id\":\"1e2444fb-88cf-7059-2068-16642cc61963\",\"type\":\"0\",\"name\":\"Param #2\"}},{\"id\":\"0267b583-d8a4-4722-8969-29af1e0f5da5\",\"value\":\"4\",\"parameterMetadata\":{\"id\":\"49cede33-3969-4307-b6be-418bb347a571\",\"type\":\"0\",\"name\":\"Param #3\"}}]},{\"id\":\"9ba923b8-f4e9-42dc-b19e-d2d6cb1ed399\",\"nextInstructionId\":\"9b81cfe0-073d-4eab-abd5-a51bd1577a71\",\"type\":\"Function\",\"position\":{\"x\":820,\"y\":555},\"instructionMetadata\":{\"id\":\"139c1123-fd5c-74f3-22d8-4db218189464\",\"name\":\"RvwAcquire\",\"color\":\"#FBB03B\",\"type\":\"Function\",\"returnDomainType\":\"String\",\"canBeRemoved\":true,\"canBeConnected\":true,\"canConnect\":true,\"parameters\":[{\"id\":\"63a15cde-5fc8-bdee-8af8-3228dd8d70a9\",\"type\":\"0\",\"name\":\"Param #1\"},{\"id\":\"cc9eec12-3dd4-320c-2f4a-e6a39dbaef18\",\"type\":\"0\",\"name\":\"Param #2\"},{\"id\":\"b49f31e2-371f-cdf2-eaf4-ff951f959ff9\",\"type\":\"0\",\"name\":\"Param #3\"}]},\"parameters\":[{\"id\":\"e4ebf963-0b14-4c06-8032-7ea389adeadc\",\"value\":\"6\",\"parameterMetadata\":{\"id\":\"63a15cde-5fc8-bdee-8af8-3228dd8d70a9\",\"type\":\"0\",\"name\":\"Param #1\"}},{\"id\":\"686555ec-d9db-4a4e-8df1-2b4dacdabbf4\",\"value\":\"6\",\"parameterMetadata\":{\"id\":\"cc9eec12-3dd4-320c-2f4a-e6a39dbaef18\",\"type\":\"0\",\"name\":\"Param #2\"}},{\"id\":\"54299af4-4e26-42e8-9384-9ee736c7deb2\",\"value\":\"6\",\"parameterMetadata\":{\"id\":\"b49f31e2-371f-cdf2-eaf4-ff951f959ff9\",\"type\":\"0\",\"name\":\"Param #3\"}}]},{\"id\":\"9b81cfe0-073d-4eab-abd5-a51bd1577a71\",\"nextInstructionId\":null,\"type\":\"End\",\"position\":{\"x\":1086,\"y\":284},\"instructionMetadata\":{\"id\":\"70ce4071-bce4-2ae0-ebf3-6514786b916c\",\"name\":\"End\",\"color\":\"#000000\",\"type\":\"End\",\"canBeRemoved\":true,\"canBeConnected\":true,\"canConnect\":false}}]}"
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/sequences/{{seqDelete}}",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"sequences",
+								"{{seqDelete}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Point",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1743c5d-b16c-4567-88a3-f3458edafb30",
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/sequences/{{seqDelete}}",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"sequences",
+								"{{seqDelete}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Routes",
+			"item": [
+				{
+					"name": "Post New Route",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29b309a8-5f0c-4f40-97d3-50e8f18f4137",
+								"exec": [
+									"pm.test(\"Login suceeds - 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"",
+									"var token = \"Bearer \" + jsonData.token; // pass toke to a variable ",
+									"  ",
+									"pm.environment.set(\"token\",  token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\tusername: \"{{username}}\", \r\n\tpassword: \"{{password}}\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/session/login",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"session",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Routes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:44300/api/routes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44300",
+							"path": [
+								"api",
+								"routes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Delivery Route",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:44300/api/routes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44300",
+							"path": [
+								"api",
+								"routes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Route",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://localhost:44300/api/routes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44300",
+							"path": [
+								"api",
+								"routes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Route",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0c4d59d9-fd75-427b-bd0e-9fe3ed836d5b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e6c81274-9b1c-44e5-aa9f-5c5456458af8",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\tid: null, \r\n\tname: \"AAAAA\",\r\n\tpointstart: \"755ea1f8-b453-4425-ae93-135a0f27a123\",\r\n\tpointend: \"755ea1f8-b453-4425-ae93-135a0f27a124\",\r\n\trouteprice:23,\r\n\troutetime:234,\r\n\tstate:\"Active\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/routes",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"routes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Route",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b1743c5d-b16c-4567-88a3-f3458edafb30",
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{endpoint}}/api/sequences/{{seqDelete}}",
+							"host": [
+								"{{endpoint}}"
+							],
+							"path": [
+								"api",
+								"sequences",
+								"{{seqDelete}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "29b309a8-5f0c-4f40-97d3-50e8f18f4137",
+						"exec": [
+							"pm.test(\"Login suceeds - 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"var token = \"Bearer \" + jsonData.token; // pass toke to a variable ",
+							"  ",
+							"pm.environment.set(\"token\",  token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\tusername: \"admin\", \r\n\tpassword: \"admin\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{endpoint}}/api/session/login",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"api",
+						"session",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f502dcf3-80e1-4a77-b7ee-5ab0c6b6d7fb",
+						"exec": [
+							"pm.test(\"User logout - 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\ttoken: \"{{token}}\"\n}"
+				},
+				"url": {
+					"raw": "{{endpoint}}/api/session/logout",
+					"host": [
+						"{{endpoint}}"
+					],
+					"path": [
+						"api",
+						"session",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

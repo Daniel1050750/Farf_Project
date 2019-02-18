@@ -14,8 +14,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Farf_Project.Test", "Farf_Project.Test\Farf_Project.Test.csproj", "{D699CD1B-FCFD-429D-977D-27B344C97A2C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,10 +32,6 @@ Global
 		{7B11AC44-F36F-48FB-9F7A-713FF67F6178}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B11AC44-F36F-48FB-9F7A-713FF67F6178}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B11AC44-F36F-48FB-9F7A-713FF67F6178}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D699CD1B-FCFD-429D-977D-27B344C97A2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D699CD1B-FCFD-429D-977D-27B344C97A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D699CD1B-FCFD-429D-977D-27B344C97A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D699CD1B-FCFD-429D-977D-27B344C97A2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
