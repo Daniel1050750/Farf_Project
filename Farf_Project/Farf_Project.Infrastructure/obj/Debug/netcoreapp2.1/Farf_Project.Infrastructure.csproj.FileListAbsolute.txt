@@ -1,12 +1,12 @@
-C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\obj\Debug\netcoreapp2.1\Farf_Project.Infrastructure.csprojAssemblyReference.cache
-C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\obj\Debug\netcoreapp2.1\Farf_Project.Infrastructure.csproj.CoreCompileInputs.cache
-C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\obj\Debug\netcoreapp2.1\Farf_Project.Infrastructure.AssemblyInfoInputs.cache
-C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\obj\Debug\netcoreapp2.1\Farf_Project.Infrastructure.AssemblyInfo.cs
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\bin\Debug\netcoreapp2.1\Farf_Project.Infrastructure.deps.json
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\bin\Debug\netcoreapp2.1\Farf_Project.Infrastructure.dll
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\bin\Debug\netcoreapp2.1\Farf_Project.Infrastructure.pdb
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\bin\Debug\netcoreapp2.1\Farf_Project.Core.dll
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\bin\Debug\netcoreapp2.1\Farf_Project.Core.pdb
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\obj\Debug\netcoreapp2.1\Farf_Project.Infrastructure.csprojAssemblyReference.cache
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\obj\Debug\netcoreapp2.1\Farf_Project.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\obj\Debug\netcoreapp2.1\Farf_Project.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\obj\Debug\netcoreapp2.1\Farf_Project.Infrastructure.AssemblyInfo.cs
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\obj\Debug\netcoreapp2.1\Farf_Project.Infrastructure.csproj.CopyComplete
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\obj\Debug\netcoreapp2.1\Farf_Project.Infrastructure.dll
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Infrastructure\obj\Debug\netcoreapp2.1\Farf_Project.Infrastructure.pdb
