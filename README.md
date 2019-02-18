@@ -7,7 +7,7 @@
     Password=1029384756;
     Database=farf
       
-      ## Run the SQL on SQL folder -> this is the structure and data to DB
+      ## Run the SQL on SQL folder -> contains the structure and the initial data
 
 
   ## Execute the Farf_Project
@@ -15,5 +15,5 @@
   
   ## Go to Postman folder.
     ## Import the Postman Collection and Environment to test the API.       
-      # Only registed users can access to API functions
+      # Only registered users can access to API functions
       # Only administrator users can create, update and delete data.
