@@ -287,7 +287,7 @@ namespace Farf_Project.Core
 
             await this.RouteCalc(spRoutes, ePoint);
 
-            var result = this.FilterBestRouteOption();
+            var result = this.FilterBestRouteOption(sPoint, ePoint);
         
             return result;
         }
@@ -300,22 +300,21 @@ namespace Farf_Project.Core
         /// <returns></returns>
         private async Task RouteCalc(IEnumerable<Route> startRoute, Guid ePoint)
         {
-            foreach (var item in startRoute)
-            {
-                this.tempRouteList.Add(item);
-                if (item.PointEnd == ePoint)
+            if(startRoute.Count() != 0 )
+            { 
+                foreach (var item in startRoute)
                 {
-                    this.routesList.Add(this.tempRouteList);
-                    this.tempRouteList = new List<Route>();
-                }
-                else
-                {
-                    var spRoutes = await this.routesRepository.GetRoutesWithStartPoint(item.PointEnd);
-                    if(spRoutes == null)
+                    this.tempRouteList.Add(item);
+                    if (item.PointEnd == ePoint)
                     {
-                        throw new InvalidArgumentException("Route can not be calculated.");
+                        this.routesList.Add(this.tempRouteList);
+                        this.tempRouteList = new List<Route>();
                     }
-                    await this.RouteCalc(spRoutes, ePoint);
+                    else
+                    {
+                        var spRoutes = await this.routesRepository.GetRoutesWithStartPoint(item.PointEnd);
+                        await this.RouteCalc(spRoutes, ePoint);
+                    }
                 }
             }
         }
@@ -324,12 +323,24 @@ namespace Farf_Project.Core
         /// Filter data to retrive the best route
         /// </summary>
         /// <returns></returns>
-        private List<Route> FilterBestRouteOption()
+        private List<Route> FilterBestRouteOption(Guid sPoint, Guid ePoint)
         {
+            if(this.routesList.Count() == 0)
+            {
+                throw new InvalidArgumentException("Route can not be calculated.");
+            }
+
             var price = 0;
             var time = 0;
             var result = new List<Route>();
+
             var filterFullList = this.routesList.Where(x => x.Count > 1);
+
+            if (filterFullList.Count() == 0)
+            {
+                throw new InvalidArgumentException("Route can not be calculated.");
+            }
+
             foreach (var item in filterFullList)
             {
                 var newPrice = item.Sum(a => a.RoutePrice);
@@ -347,6 +358,10 @@ namespace Farf_Project.Core
                         time = newTime;
                     }
                 }
+            }
+            if(result[0].PointStart != sPoint || result[result.Count() - 1].PointEnd != ePoint)
+            {
+                throw new InvalidArgumentException("Route can not be calculated.");
             }
             return result;
         }
