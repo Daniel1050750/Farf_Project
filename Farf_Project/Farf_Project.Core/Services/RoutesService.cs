@@ -311,6 +311,10 @@ namespace Farf_Project.Core
                 else
                 {
                     var spRoutes = await this.routesRepository.GetRoutesWithStartPoint(item.PointEnd);
+                    if(spRoutes == null)
+                    {
+                        throw new InvalidArgumentException("Route can not be calculated.");
+                    }
                     await this.RouteCalc(spRoutes, ePoint);
                 }
             }
@@ -322,23 +326,25 @@ namespace Farf_Project.Core
         /// <returns></returns>
         private List<Route> FilterBestRouteOption()
         {
-            var price = 9999999;
-            var time = 9999999;
+            var price = 0;
+            var time = 0;
             var result = new List<Route>();
-            var filterFullList = this.routesList.Where(x => x.Count > 2);
+            var filterFullList = this.routesList.Where(x => x.Count > 1);
             foreach (var item in filterFullList)
             {
                 var newPrice = item.Sum(a => a.RoutePrice);
                 var newTime = item.Sum(a => a.RouteTime);
-                if (newPrice < price)
+                if (newPrice < price || price == 0)
                 {
                     result = item;
+                    price = newPrice;
                 }
                 else if (newPrice == price)
                 {
-                    if(newTime < time)
+                    if(newTime < time || time == 0)
                     {
                         result = item;
+                        time = newTime;
                     }
                 }
             }

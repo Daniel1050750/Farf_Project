@@ -19,3 +19,4 @@ C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\obj
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\obj\Debug\netcoreapp2.1\Farf_Project.Web.Testing.csproj.CopyComplete
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\obj\Debug\netcoreapp2.1\Farf_Project.Web.Testing.dll
 C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\obj\Debug\netcoreapp2.1\Farf_Project.Web.Testing.pdb
+C:\Users\dsilva\Documents\Farf_Project\Farf_Project\Farf_Project.Web.Testing\bin\Debug\netcoreapp2.1\appsettings.json
